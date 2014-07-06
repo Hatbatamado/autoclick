@@ -122,6 +122,7 @@ namespace click
         private void Start()
         {
             //TODO: forever loop
+            //TODO: stop the event
             int db = Convert.ToInt32(repeat.Text);
             do
             {
