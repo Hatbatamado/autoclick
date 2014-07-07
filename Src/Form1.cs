@@ -32,7 +32,7 @@ namespace click
             Alap();
         }
 
-        TextBox x, y, repeat, delay, glob_repeat;
+        TextBox x, y, repeat, delay, glob_repeat, del_lane;
         RichTextBox rt;
         private void Alap()
         {
@@ -115,7 +115,8 @@ namespace click
             Label coord = new Label();
             Controls.Add(coord);
             coord.Text = "Coordinates:";
-            coord.Location = new Point(45, 144);
+            coord.Location = new Point(95, 144);
+            coord.Size = new Size(75, 22);
             //---------------------------------------------------
             Label de = new Label();
             Controls.Add(de);
@@ -139,6 +140,29 @@ namespace click
             glob_repeat.Location = new Point(350, 42);
             glob_repeat.Size = new Size(50, 22);
             glob_repeat.Text = "0";
+            //---------------------------------------------------
+            Label n0 = new Label();
+            Controls.Add(n0);
+            n0.Text = "No.:";
+            n0.Location = new Point(47, 144);
+            //---------------------------------------------------
+            Label delete = new Label();
+            Controls.Add(delete);
+            delete.Text = "Delete No.:";
+            delete.Location = new Point(75, 375);
+            delete.Size = new Size(62, 22);
+            //---------------------------------------------------
+            del_lane = new TextBox();
+            Controls.Add(del_lane);
+            del_lane.Location = new Point(140, 372);
+            del_lane.Size = new Size(35, 22);
+            //---------------------------------------------------
+            Button del_l = new Button();
+            Controls.Add(del_l);
+            del_l.Text = "Delete";
+            del_l.Location = new Point(180, 370);
+            del_l.Size = new Size(50, 22);
+            del_l.Click += del_l_Click;
             #endregion
             //---------------------------------------------------
             assign_glob = new GlobalKey(Keys.F6, this);
@@ -264,6 +288,7 @@ namespace click
         }
 
         List<Click> click = new List<Click>();
+        int elements = 0;
         private void Add()
         {
             uint X = Convert.ToUInt32(x.Text);
@@ -271,11 +296,24 @@ namespace click
             int d = Convert.ToInt32(delay.Text);
             int r = Convert.ToInt32(repeat.Text);
             //--------------------------------------------------- 
-            click.Add(new Click(X, Y, d, r));
+            click.Add(new Click(elements, X, Y, d, r));
+            elements++;
             rt.Text = rt.Text + click[click.Count - 1].Click_Out() + '\n';
             //--------------------------------------------------- 
             rt.SelectionStart = rt.Text.Length;
             rt.ScrollToCaret();
+        }
+
+        void del_l_Click(object sender, EventArgs e)
+        {
+            int del = -1;
+            try
+            {
+                del = Convert.ToInt32(del_lane.Text);
+            }
+            catch (FormatException)
+            { }
+
         }
     }
 }
