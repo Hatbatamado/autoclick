@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace click
@@ -15,7 +8,8 @@ namespace click
     public partial class Form1 : Form
     {
         //---------------------------------------------------
-        //mouse click's things:
+        #region Mouse and Keys 
+        //mouse click:
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
 
@@ -24,16 +18,16 @@ namespace click
         private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
         //---------------------------------------------------
-        //global keypress detection things:
+        //global keypress detection:
         public const int WM_HOTKEY_MSG_ID = 0x0312;
         private GlobalKey assign_glob;
         private GlobalKey start_glob;
+        #endregion
         //---------------------------------------------------
 
         public Form1()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
             Alap();
         }
 
@@ -42,6 +36,7 @@ namespace click
         {
             this.KeyPreview = true; //MUST HAVE for the buttons
             //---------------------------------------------------
+            #region Layout
             this.Text = "Auto-clicker by Nakia";
             //---------------------------------------------------
             this.Location = new Point(Screen.GetWorkingArea(this).Width -700, 150);
@@ -96,15 +91,19 @@ namespace click
             Controls.Add(repeat);
             repeat.Location = new Point(500, 42);
             repeat.Size = new Size(50, 22);
-            repeat.Text = "0";
+            repeat.Text = "-1";
+            #endregion
             //---------------------------------------------------
             assign_glob = new GlobalKey(Keys.F6, this);
             start_glob = new GlobalKey(Keys.F7, this);
             assign_glob.Register();
             start_glob.Register();
             //---------------------------------------------------
+            time.Interval = 1500;
+            time.Tick += time_Tick;
         }
 
+        #region Global key functions
         private Keys Getkey(IntPtr LParam)
         {
             return (Keys)((LParam.ToInt32()) >> 16);
@@ -124,7 +123,9 @@ namespace click
                 }
             base.WndProc(ref m);
         }
+        #endregion
 
+        #region Button clicks
         void start_Click(object sender, EventArgs e)
         {
             Start();
@@ -139,6 +140,7 @@ namespace click
         {
             Assign();
         }
+        #endregion
 
         private void Assign()
         {
@@ -146,21 +148,39 @@ namespace click
             y.Text = Cursor.Position.Y.ToString();
         }
 
+        Timer time = new Timer();
+        bool run = false;
+        int db;
+        uint X, Y;
         private void Start()
         {
-            //TODO: forever loop
-            //TODO: stop the event
-            int db = Convert.ToInt32(repeat.Text);
-            do
+            db = Convert.ToInt32(repeat.Text);
+            Cursor.Position = new Point(Convert.ToInt32(x.Text), Convert.ToInt32(y.Text));
+            uint X = (uint)Cursor.Position.X;
+            uint Y = (uint)Cursor.Position.Y;
+            //---------------------------------------------------
+            if (!run)
+                run = true;
+            else
+                run = false;
+            //---------------------------------------------------            
+            time.Start();          
+        }
+
+        void time_Tick(object sender, EventArgs e)
+        {
+            if (!run || db == 0)
             {
-                Cursor.Position = new Point(Convert.ToInt32(x.Text), Convert.ToInt32(y.Text));
-                uint X = (uint)Cursor.Position.X;
-                uint Y = (uint)Cursor.Position.Y;
+                if (db == 0 && run)
+                    run = false;
+                time.Stop();
+            }
+            else
+            {
                 mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
-                db--;
-                Thread.Sleep(1500);
-            } while (db > 0);
-            
+                if (db > 0)
+                    db--;
+            }
         }
 
         private void Add()
