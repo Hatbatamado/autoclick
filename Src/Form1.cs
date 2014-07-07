@@ -14,6 +14,8 @@ namespace click
 {
     public partial class Form1 : Form
     {
+        //---------------------------------------------------
+        //mouse click's things:
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
 
@@ -21,6 +23,12 @@ namespace click
         private const int MOUSEEVENTF_LEFTUP = 0x04;
         private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
+        //---------------------------------------------------
+        //global keypress detection things:
+        public const int WM_HOTKEY_MSG_ID = 0x0312;
+        private GlobalKey assign_glob;
+        private GlobalKey start_glob;
+        //---------------------------------------------------
 
         public Form1()
         {
@@ -33,7 +41,10 @@ namespace click
         private void Alap()
         {
             this.KeyPreview = true; //MUST HAVE for the buttons
-            this.Location = new Point(Screen.GetWorkingArea(this).Width / 2 + 600 / 3, 150);
+            //---------------------------------------------------
+            this.Text = "Auto-clicker by Nakia";
+            //---------------------------------------------------
+            this.Location = new Point(Screen.GetWorkingArea(this).Width -700, 150);
             this.Size = new Size(600, 500);
             //---------------------------------------------------
             Button assign = new Button();
@@ -87,15 +98,31 @@ namespace click
             repeat.Size = new Size(50, 22);
             repeat.Text = "0";
             //---------------------------------------------------
-            this.KeyDown += Form1_KeyDown;
+            assign_glob = new GlobalKey(Keys.F6, this);
+            start_glob = new GlobalKey(Keys.F7, this);
+            assign_glob.Register();
+            start_glob.Register();
+            //---------------------------------------------------
         }
 
-        void Form1_KeyDown(object sender, KeyEventArgs e)
+        private Keys Getkey(IntPtr LParam)
         {
-            if (e.KeyCode == Keys.F6)
-                Assign();
-            else if (e.KeyCode == Keys.F7)
-                Start();
+            return (Keys)((LParam.ToInt32()) >> 16);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_HOTKEY_MSG_ID)
+                switch (Getkey(m.LParam))
+                {
+                    case Keys.F6:
+                        Assign();
+                        break;
+                    case Keys.F7:
+                        Start();
+                        break;
+                }
+            base.WndProc(ref m);
         }
 
         void start_Click(object sender, EventArgs e)
