@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.IO;
 
 namespace click
 {
@@ -163,6 +164,20 @@ namespace click
             del_l.Location = new Point(180, 370);
             del_l.Size = new Size(50, 22);
             del_l.Click += del_l_Click;
+            //---------------------------------------------------
+            Button save = new Button();
+            Controls.Add(save);
+            save.Text = "Save";
+            save.Location = new Point(315, 370);
+            save.Size = new Size(50, 22);
+            save.Click += save_Click;
+            //---------------------------------------------------
+            Button load = new Button();
+            Controls.Add(load);
+            load.Text = "Load";
+            load.Location = new Point(315, 400);
+            load.Size = new Size(50, 22);
+            load.Click += load_Click;
             #endregion
             //---------------------------------------------------
             assign_glob = new GlobalKey(Keys.F6, this);
@@ -343,6 +358,81 @@ namespace click
                 for (int i = 0; i < click.Count; i++)
                     rt.Text = rt.Text + click[i].Click_Out(i) + '\n';
             }
+        }
+
+        void save_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void Save()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Text Files | *.txt";
+            sfd.DefaultExt = ".txt";
+            sfd.ShowDialog();
+
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter(sfd.FileName);
+            }
+            catch (ArgumentException) { }
+            if (sw != null)
+            {
+                for (int i = 0; i < click.Count; i++)
+                    sw.WriteLine(click[i].Click_Out(i));
+                sw.Close();
+            }
+        }
+
+        void load_Click(object sender, EventArgs e)
+        {
+            Load_t();
+        }
+
+        private void Load_t()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Text Files | *.txt";
+            ofd.DefaultExt = ".txt";
+            ofd.ShowDialog();
+
+            click = new List<Click>();
+            rt.Text = "";
+            int a = 0;
+            StreamReader sr = null;
+            try
+            {
+                sr = new StreamReader(ofd.FileName);
+            }
+            catch (ArgumentException) { }
+            if (sr != null)
+            {
+                while (!sr.EndOfStream)
+                {
+                    click.Add(Text_convert(sr.ReadLine()));
+                    rt.Text = rt.Text + click[click.Count - 1].Click_Out(a++) + '\n';
+                }
+                sr.Close();
+            }
+        }
+
+        private Click Text_convert(string a)
+        {
+            //--------X
+            a = a.Substring(a.IndexOf('\t')+1);
+            uint X = Convert.ToUInt32(a.Substring(0, a.IndexOf('-')));
+            //--------Y
+            string b = a.Substring(a.IndexOf('-') + 1);
+            uint Y = Convert.ToUInt32(b.Substring(0, b.IndexOf('\t')));
+            //--------d
+            a = b.Substring(b.IndexOf("\t\t") + 2);
+            int d = Convert.ToInt32(a.Substring(0, a.IndexOf('\t')));
+            //--------r
+            int r = Convert.ToInt32(a.Substring(a.IndexOf("\t\t")));
+
+            return new Click(X, Y, d, r);
         }
     }
 }
