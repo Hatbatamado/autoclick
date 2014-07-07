@@ -32,7 +32,7 @@ namespace click
             Alap();
         }
 
-        TextBox x, y, repeat, delay;
+        TextBox x, y, repeat, delay, glob_repeat;
         RichTextBox rt;
         private void Alap()
         {
@@ -105,7 +105,7 @@ namespace click
             Controls.Add(repeat);
             repeat.Location = new Point(55, 102);
             repeat.Size = new Size(75, 22);
-            repeat.Text = "-1";
+            repeat.Text = "1";
             //---------------------------------------------------
             rt = new RichTextBox();
             Controls.Add(rt);
@@ -127,6 +127,18 @@ namespace click
             Controls.Add(repe);
             repe.Text = "repeat:";
             repe.Location = new Point(280, 144);
+            //---------------------------------------------------
+            Label glob_rep = new Label();
+            Controls.Add(glob_rep);
+            glob_rep.Text = "Repeat full process:";
+            glob_rep.Location = new Point(240, 45);
+            glob_rep.Size = new Size(110, 22);
+            //---------------------------------------------------
+            glob_repeat = new TextBox();
+            Controls.Add(glob_repeat);
+            glob_repeat.Location = new Point(350, 42);
+            glob_repeat.Size = new Size(50, 22);
+            glob_repeat.Text = "0";
             #endregion
             //---------------------------------------------------
             assign_glob = new GlobalKey(Keys.F6, this);
@@ -134,7 +146,6 @@ namespace click
             assign_glob.Register();
             start_glob.Register();
             //---------------------------------------------------
-            time.Interval = 1500;
             time.Tick += time_Tick;
         }
 
@@ -187,16 +198,19 @@ namespace click
         bool run = false;
         int step_r;
         int step;
+        int step_glob_r;
         private void Start()
         {
             step = 0;
             step_r = 0;
+            step_glob_r = 0;
             //---------------------------------------------------
             if (!run)
                 run = true;
             else
                 run = false;
-            //---------------------------------------------------            
+            //---------------------------------------------------  
+            time.Interval = click[step].Delay;
             time.Start();          
         }
 
@@ -218,6 +232,30 @@ namespace click
                     {
                         step++;
                         step_r = 0;
+                        if (step != click.Count)
+                        {
+                            time.Interval = click[step].Delay;
+                            time.Start();
+                        }
+                        else
+                        {
+                            if (glob_repeat.Text == "0")
+                            {
+                                step = 0;
+                                step_r = 0;
+                            }
+                            else
+                            {
+                                if (Convert.ToInt32(glob_repeat.Text) > step_glob_r)
+                                {
+                                    step = 0;
+                                    step_r = 0;
+                                    step_glob_r++;
+                                }
+                                else
+                                    step = click.Count;
+                            }                           
+                        }
                     }
                     else
                         step_r++;
