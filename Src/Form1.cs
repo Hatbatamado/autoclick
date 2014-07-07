@@ -185,11 +185,12 @@ namespace click
 
         Timer time = new Timer();
         bool run = false;
-        int db;
+        int step_r;
+        int step;
         private void Start()
         {
-            db = Convert.ToInt32(repeat.Text);
-            Cursor.Position = new Point(Convert.ToInt32(x.Text), Convert.ToInt32(y.Text));
+            step = 0;
+            step_r = 0;
             //---------------------------------------------------
             if (!run)
                 run = true;
@@ -201,30 +202,40 @@ namespace click
 
         void time_Tick(object sender, EventArgs e)
         {
-            if (!run || db == 0)
+            if (!run || step == click.Count)
             {
-                if (db == 0 && run)
+                if (run)
                     run = false;
                 time.Stop();
             }
             else
             {
-                //mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
-                if (db > 0)
-                    db--;
+                Cursor.Position = new Point((int)click[step].X, (int)click[step].Y);
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, click[step].X, click[step].Y, 0, 0);
+                if (click[step].Repeat > -1)
+                {
+                    if (click[step].Repeat - 1 == step_r)
+                    {
+                        step++;
+                        step_r = 0;
+                    }
+                    else
+                        step_r++;
+                }
             }
         }
 
         List<Click> click = new List<Click>();
         private void Add()
         {
-            //TODO: ADD table & delay
             uint X = Convert.ToUInt32(x.Text);
             uint Y = Convert.ToUInt32(y.Text);
             int d = Convert.ToInt32(delay.Text);
             int r = Convert.ToInt32(repeat.Text);
+            //--------------------------------------------------- 
             click.Add(new Click(X, Y, d, r));
             rt.Text = rt.Text + click[click.Count - 1].Click_Out() + '\n';
+            //--------------------------------------------------- 
             rt.SelectionStart = rt.Text.Length;
             rt.ScrollToCaret();
         }
