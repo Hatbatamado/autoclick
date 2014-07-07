@@ -111,6 +111,22 @@ namespace click
             Controls.Add(rt);
             rt.Location = new Point(50, 160);
             rt.Size = new Size(325, 200);
+            //---------------------------------------------------
+            Label coord = new Label();
+            Controls.Add(coord);
+            coord.Text = "Coordinates:";
+            coord.Location = new Point(45, 144);
+            //---------------------------------------------------
+            Label de = new Label();
+            Controls.Add(de);
+            de.Text = "delay (ms):";
+            de.Location = new Point(185, 144);
+            de.Size = new Size(60, 22);
+            //---------------------------------------------------
+            Label repe = new Label();
+            Controls.Add(repe);
+            repe.Text = "repeat:";
+            repe.Location = new Point(280, 144);
             #endregion
             //---------------------------------------------------
             assign_glob = new GlobalKey(Keys.F6, this);
@@ -203,10 +219,14 @@ namespace click
         private void Add()
         {
             //TODO: ADD table & delay
-            uint X = (uint)Cursor.Position.X;
-            uint Y = (uint)Cursor.Position.Y;
-            click.Add(new Click(X, Y, 0, 0));
+            uint X = Convert.ToUInt32(x.Text);
+            uint Y = Convert.ToUInt32(y.Text);
+            int d = Convert.ToInt32(delay.Text);
+            int r = Convert.ToInt32(repeat.Text);
+            click.Add(new Click(X, Y, d, r));
             rt.Text = rt.Text + click[click.Count - 1].Click_Out() + '\n';
+            rt.SelectionStart = rt.Text.Length;
+            rt.ScrollToCaret();
         }
     }
 }
