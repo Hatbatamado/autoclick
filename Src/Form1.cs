@@ -190,7 +190,7 @@ namespace click
                 switch (Getkey(m.LParam))
                 {
                     case Keys.F6:
-                        Assign();
+                        Add_Del_Assign.Assign(x, y);
                         break;
                     case Keys.F7:
                         Start_Tick.Start(click, glob_repeat);
@@ -200,7 +200,6 @@ namespace click
         }
         #endregion
 
-        #region Button clicks
         void start_Click(object sender, EventArgs e)
         {
             Start_Tick.Start(click, glob_repeat);
@@ -209,26 +208,19 @@ namespace click
         int elements = 0;
         void add_Click(object sender, EventArgs e)
         {
-            Add_Del.Add(x, y, delay, repeat, click, rt, ref elements);
+            Add_Del_Assign.Add(x, y, delay, repeat, click, rt, ref elements);
         }
 
         void assign_Click(object sender, EventArgs e)
         {
-            Assign();
-        }
-        #endregion
-
-        private void Assign()
-        {
-            x.Text = Cursor.Position.X.ToString();
-            y.Text = Cursor.Position.Y.ToString();
+            Add_Del_Assign.Assign(x, y);
         }
 
         List<Click> click = new List<Click>();
 
         void del_l_Click(object sender, EventArgs e)
         {
-            Add_Del.Del(click, rt, del_lane);
+            Add_Del_Assign.Del(click, rt, del_lane);
         }
 
         void save_Click(object sender, EventArgs e)
