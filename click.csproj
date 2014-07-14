@@ -56,6 +56,7 @@
     <Compile Include="Src\GlobalKey.cs" />
     <Compile Include="Src\Load_Save.cs" />
     <Compile Include="Src\Program.cs" />
+    <Compile Include="Src\Start_Tick.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

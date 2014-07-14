@@ -11,15 +11,7 @@ namespace click
     {
         //---------------------------------------------------
         #region Mouse and Keys 
-        //mouse click:
-        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
-
-        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const int MOUSEEVENTF_LEFTUP = 0x04;
-        private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
-        private const int MOUSEEVENTF_RIGHTUP = 0x10;
-        //---------------------------------------------------
+        
         //global keypress detection:
         public const int WM_HOTKEY_MSG_ID = 0x0312;
         private GlobalKey assign_glob;
@@ -184,8 +176,6 @@ namespace click
             start_glob = new GlobalKey(Keys.F7, this);
             assign_glob.Register();
             start_glob.Register();
-            //---------------------------------------------------
-            time.Tick += time_Tick;
         }
 
         #region Global key functions
@@ -203,7 +193,7 @@ namespace click
                         Assign();
                         break;
                     case Keys.F7:
-                        Start();
+                        Start_Tick.Start(click, glob_repeat);
                         break;
                 }
             base.WndProc(ref m);
@@ -213,7 +203,7 @@ namespace click
         #region Button clicks
         void start_Click(object sender, EventArgs e)
         {
-            Start();
+            Start_Tick.Start(click, glob_repeat);
         }
 
         int elements = 0;
@@ -232,75 +222,6 @@ namespace click
         {
             x.Text = Cursor.Position.X.ToString();
             y.Text = Cursor.Position.Y.ToString();
-        }
-
-        Timer time = new Timer();
-        bool run = false;
-        int step_r;
-        int step;
-        int step_glob_r;
-        private void Start()
-        {
-            step = 0;
-            step_r = 0;
-            step_glob_r = 0;
-            //---------------------------------------------------
-            if (!run)
-                run = true;
-            else
-                run = false;
-            //---------------------------------------------------  
-            time.Interval = click[step].Delay;
-            time.Start();          
-        }
-
-        void time_Tick(object sender, EventArgs e)
-        {
-            if (!run || step == click.Count)
-            {
-                if (run)
-                    run = false;
-                time.Stop();
-            }
-            else
-            {
-                Cursor.Position = new Point((int)click[step].X, (int)click[step].Y);
-                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, click[step].X, click[step].Y, 0, 0);
-                if (click[step].Repeat > -1)
-                {
-                    if (click[step].Repeat - 1 == step_r)
-                    {
-                        step++;
-                        step_r = 0;
-                        if (step != click.Count)
-                        {
-                            time.Interval = click[step].Delay;
-                            time.Start();
-                        }
-                        else
-                        {
-                            if (glob_repeat.Text == "0")
-                            {
-                                step = 0;
-                                step_r = 0;
-                            }
-                            else
-                            {
-                                if (Convert.ToInt32(glob_repeat.Text) > step_glob_r)
-                                {
-                                    step = 0;
-                                    step_r = 0;
-                                    step_glob_r++;
-                                }
-                                else
-                                    step = click.Count;
-                            }                           
-                        }
-                    }
-                    else
-                        step_r++;
-                }
-            }
         }
 
         List<Click> click = new List<Click>();
