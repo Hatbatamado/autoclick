@@ -216,9 +216,10 @@ namespace click
             Start();
         }
 
+        int elements = 0;
         void add_Click(object sender, EventArgs e)
         {
-            Add();
+            Add_Del.Add(x, y, delay, repeat, click, rt, ref elements);
         }
 
         void assign_Click(object sender, EventArgs e)
@@ -303,61 +304,10 @@ namespace click
         }
 
         List<Click> click = new List<Click>();
-        int elements = 0;
-        private void Add()
-        {
-            int X = -1;
-            int Y = -1;
-            int d = -1;
-            int r = -1;
-            try
-            {
-                X = Convert.ToInt32(x.Text);
-            }
-            catch (FormatException) { }
-            try
-            {
-                Y = Convert.ToInt32(y.Text);
-            }
-            catch (FormatException) { }
-            try
-            {
-                d = Convert.ToInt32(delay.Text);
-            }
-            catch (FormatException) { }
-            try
-            {
-                r = Convert.ToInt32(repeat.Text);
-            }
-            catch (FormatException) { }
-            if (X != -1 && Y != -1 && d != -1 && r != -1)
-            {
-                //--------------------------------------------------- 
-                click.Add(new Click((uint)X, (uint)Y, d, r));
-                rt.Text = rt.Text + click[click.Count - 1].Click_Out(elements) + '\n';
-                elements++;
-                //--------------------------------------------------- 
-                rt.SelectionStart = rt.Text.Length;
-                rt.ScrollToCaret();
-            }
-        }
 
         void del_l_Click(object sender, EventArgs e)
         {
-            int del = -1;
-            try
-            {
-                del = Convert.ToInt32(del_lane.Text);
-            }
-            catch (FormatException)
-            { }
-            if (del > -1 && click.Count > del)
-            {
-                click.RemoveAt(del);
-                rt.Text = "";
-                for (int i = 0; i < click.Count; i++)
-                    rt.Text = rt.Text + click[i].Click_Out(i) + '\n';
-            }
+            Add_Del.Del(click, rt, del_lane);
         }
 
         void save_Click(object sender, EventArgs e)
