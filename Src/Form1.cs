@@ -208,7 +208,7 @@ namespace click
         int elements = 0;
         void add_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Add(x, y, delay, repeat, click, rt, ref elements);
+            Add_Del_Assign.Add(x, y, delay, repeat, click, rt, elements);
         }
 
         void assign_Click(object sender, EventArgs e)
@@ -220,7 +220,7 @@ namespace click
 
         void del_l_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Del(click, rt, del_lane);
+            Add_Del_Assign.Del(del_lane, click, rt);
         }
 
         void save_Click(object sender, EventArgs e)
@@ -230,7 +230,7 @@ namespace click
 
         void load_Click(object sender, EventArgs e)
         {
-            Load_Save.Load(click, rt);
+            click = Load_Save.Load(click, rt);
         }
     }
 }
