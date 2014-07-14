@@ -6,8 +6,9 @@ namespace click
 {
     static class Add_Del_Assign
     {
+        static int elements = 0;
         static public void Add(TextBox x, TextBox y, TextBox delay, TextBox repeat,
-            List<Click> click, RichTextBox rt, int elements)
+            List<Click> click, RichTextBox rt)
         {
             int X = -1;
             int Y = -1;

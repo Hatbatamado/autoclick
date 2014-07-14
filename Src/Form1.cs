@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.IO;
 
@@ -9,15 +8,10 @@ namespace click
 {
     public partial class Form1 : Form
     {
-        //---------------------------------------------------
-        #region Mouse and Keys 
-        
-        //global keypress detection:
         public const int WM_HOTKEY_MSG_ID = 0x0312;
-        private GlobalKey assign_glob;
-        private GlobalKey start_glob;
-        #endregion
-        //---------------------------------------------------
+        List<Click> click = new List<Click>();
+        TextBox x, y, repeat, delay, glob_repeat, del_lane;
+        RichTextBox rt;
 
         public Form1()
         {
@@ -25,8 +19,7 @@ namespace click
             Alap();
         }
 
-        TextBox x, y, repeat, delay, glob_repeat, del_lane;
-        RichTextBox rt;
+        
         private void Alap()
         {
             this.KeyPreview = true; //MUST HAVE for the buttons
@@ -172,10 +165,7 @@ namespace click
             load.Click += load_Click;
             #endregion
             //---------------------------------------------------
-            assign_glob = new GlobalKey(Keys.F6, this);
-            start_glob = new GlobalKey(Keys.F7, this);
-            assign_glob.Register();
-            start_glob.Register();
+            GlobalKeys.Detect(this);
         }
 
         #region Global key functions
@@ -200,23 +190,21 @@ namespace click
         }
         #endregion
 
+        #region button clicks
         void start_Click(object sender, EventArgs e)
         {
             Start_Tick.Start(click, glob_repeat);
         }
-
-        int elements = 0;
+        
         void add_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Add(x, y, delay, repeat, click, rt, elements);
+            Add_Del_Assign.Add(x, y, delay, repeat, click, rt);
         }
 
         void assign_Click(object sender, EventArgs e)
         {
             Add_Del_Assign.Assign(x, y);
         }
-
-        List<Click> click = new List<Click>();
 
         void del_l_Click(object sender, EventArgs e)
         {
@@ -232,5 +220,6 @@ namespace click
         {
             click = Load_Save.Load(click, rt);
         }
+        #endregion
     }
 }

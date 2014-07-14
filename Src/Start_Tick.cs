@@ -28,19 +28,22 @@ namespace click
         static public void Start(List<Click> click, TextBox glob_repeat)
         {
             autoclick = click;
-            glo_re = glob_repeat;
-            time.Tick += time_Tick;
-            step = 0;
-            step_r = 0;
-            step_glob_r = 0;
-            //---------------------------------------------------
-            if (!run)
-                run = true;
-            else
-                run = false;
-            //---------------------------------------------------  
-            time.Interval = click[step].Delay;
-            time.Start();
+            if (autoclick.Count > 0)
+            {
+                glo_re = glob_repeat;
+                time.Tick += time_Tick;
+                step = 0;
+                step_r = 0;
+                step_glob_r = 0;
+                //---------------------------------------------------
+                if (!run)
+                    run = true;
+                else
+                    run = false;
+                //---------------------------------------------------  
+                time.Interval = click[step].Delay;
+                time.Start();
+            }
         }
 
         static void time_Tick(object sender, EventArgs e)

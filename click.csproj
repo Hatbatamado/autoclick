@@ -54,6 +54,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\GlobalKey.cs" />
+    <Compile Include="Src\GlobalKeys.cs" />
     <Compile Include="Src\Load_Save.cs" />
     <Compile Include="Src\Program.cs" />
     <Compile Include="Src\Start_Tick.cs" />
