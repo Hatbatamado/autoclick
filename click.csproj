@@ -53,6 +53,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Src\GlobalKey.cs" />
+    <Compile Include="Src\Load_Save.cs" />
     <Compile Include="Src\Program.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
