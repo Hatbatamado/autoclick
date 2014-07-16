@@ -34,6 +34,7 @@ namespace click
         internal static List<Click> Click
         {
             get { return Design.click; }
+            set { Design.click = value; }
         }
 
         static public void INIT(Form form)
@@ -186,32 +187,32 @@ namespace click
 
         static void add_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Add(x, y, delay, repeat, click, rt);
+            Add_Del_Assign.Add(delay, repeat, rt);
         }
 
         static void del_l_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Del(del_lane, click, rt);
+            Add_Del_Assign.Del(del_lane, rt);
         }
 
         static void assign_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Assign(x, y);
+            Add_Del_Assign.Assign();
         }
 
         static void save_Click(object sender, EventArgs e)
         {
-            Load_Save.Save(click);
+            Load_Save.Save();
         }
 
         static void load_Click(object sender, EventArgs e)
         {
-            Load_Save.Load(click, rt);
+            Load_Save.Load(rt);
         }
 
         static void start_Click(object sender, EventArgs e)
         {
-            Start_Tick.Start(click, glob_repeat);
+            Start_Tick.Start();
         }
     }
 }

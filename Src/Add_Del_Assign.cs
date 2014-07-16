@@ -7,8 +7,7 @@ namespace click
     static class Add_Del_Assign
     {
         static int elements = 0;
-        static public void Add(TextBox x, TextBox y, TextBox delay, TextBox repeat,
-            List<Click> click, RichTextBox rt)
+        static public void Add(TextBox delay, TextBox repeat, RichTextBox rt)
         {
             int X = -1;
             int Y = -1;
@@ -16,12 +15,12 @@ namespace click
             int r = -1;
             try
             {
-                X = Convert.ToInt32(x.Text);
+                X = Convert.ToInt32(Design.X.Text);
             }
             catch (FormatException) { }
             try
             {
-                Y = Convert.ToInt32(y.Text);
+                Y = Convert.ToInt32(Design.Y.Text);
             }
             catch (FormatException) { }
             try
@@ -37,8 +36,8 @@ namespace click
             if (X != -1 && Y != -1 && d != -1 && r != -1)
             {
                 //--------------------------------------------------- 
-                click.Add(new Click((uint)X, (uint)Y, d, r));
-                rt.Text = rt.Text + click[click.Count - 1].Click_Out(elements) + '\n';
+                Design.Click.Add(new Click((uint)X, (uint)Y, d, r));
+                rt.Text = rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(elements) + '\n';
                 elements++;
                 //--------------------------------------------------- 
                 rt.SelectionStart = rt.Text.Length;
@@ -46,7 +45,7 @@ namespace click
             }
         }
 
-        static public void Del(TextBox del_lane, List<Click> click, RichTextBox rt)
+        static public void Del(TextBox del_lane, RichTextBox rt)
         {
             int del = -1;
             try
@@ -55,19 +54,19 @@ namespace click
             }
             catch (FormatException)
             { }
-            if (del > -1 && click.Count > del)
+            if (del > -1 && Design.Click.Count > del)
             {
-                click.RemoveAt(del);
+                Design.Click.RemoveAt(del);
                 rt.Text = "";
-                for (int i = 0; i < click.Count; i++)
-                    rt.Text = rt.Text + click[i].Click_Out(i) + '\n';
+                for (int i = 0; i < Design.Click.Count; i++)
+                    rt.Text = rt.Text + Design.Click[i].Click_Out(i) + '\n';
             }
         }
 
-        static public void Assign(TextBox x, TextBox y)
+        static public void Assign()
         {
-            x.Text = Cursor.Position.X.ToString();
-            y.Text = Cursor.Position.Y.ToString();
+            Design.X.Text = Cursor.Position.X.ToString();
+            Design.Y.Text = Cursor.Position.Y.ToString();
         }
     }
 }

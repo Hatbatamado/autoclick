@@ -22,15 +22,11 @@ namespace click
         static int step_r;
         static int step;
         static int step_glob_r;
-        static List<Click> autoclick;
-        static TextBox glo_re;
 
-        static public void Start(List<Click> click, TextBox glob_repeat)
+        static public void Start()
         {
-            autoclick = click;
-            if (autoclick.Count > 0)
+            if (Design.Click.Count > 0)
             {
-                glo_re = glob_repeat;
                 time.Tick += time_Tick;
                 step = 0;
                 step_r = 0;
@@ -41,14 +37,14 @@ namespace click
                 else
                     run = false;
                 //---------------------------------------------------  
-                time.Interval = click[step].Delay;
+                time.Interval = Design.Click[step].Delay;
                 time.Start();
             }
         }
 
         static void time_Tick(object sender, EventArgs e)
         {
-            if (!run || step == autoclick.Count)
+            if (!run || step == Design.Click.Count)
             {
                 if (run)
                     run = false;
@@ -56,36 +52,36 @@ namespace click
             }
             else
             {
-                Cursor.Position = new Point((int)autoclick[step].X, (int)autoclick[step].Y);
-                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, autoclick[step].X, autoclick[step].Y, 0, 0);
-                if (autoclick[step].Repeat > -1)
+                Cursor.Position = new Point((int)Design.Click[step].X, (int)Design.Click[step].Y);
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, Design.Click[step].X, Design.Click[step].Y, 0, 0);
+                if (Design.Click[step].Repeat > -1)
                 {
-                    if (autoclick[step].Repeat - 1 == step_r)
+                    if (Design.Click[step].Repeat - 1 == step_r)
                     {
                         step++;
                         step_r = 0;
-                        if (step != autoclick.Count)
+                        if (step != Design.Click.Count)
                         {
-                            time.Interval = autoclick[step].Delay;
+                            time.Interval = Design.Click[step].Delay;
                             time.Start();
                         }
                         else
                         {
-                            if (glo_re.Text == "0")
+                            if (Design.Glob_repeat.Text == "0")
                             {
                                 step = 0;
                                 step_r = 0;
                             }
                             else
                             {
-                                if (Convert.ToInt32(glo_re.Text) > step_glob_r)
+                                if (Convert.ToInt32(Design.Glob_repeat.Text) > step_glob_r)
                                 {
                                     step = 0;
                                     step_r = 0;
                                     step_glob_r++;
                                 }
                                 else
-                                    step = autoclick.Count;
+                                    step = Design.Click.Count;
                             }
                         }
                     }

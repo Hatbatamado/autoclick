@@ -6,25 +6,21 @@ namespace click
     class Click
     {
         uint x;
-
         public uint X
         {
             get { return x; }
         }
         uint y;
-
         public uint Y
         {
             get { return y; }
         }
         int delay;
-
         public int Delay
         {
             get { return delay; }
         }
         int repeat;
-
         public int Repeat
         {
             get { return repeat; }

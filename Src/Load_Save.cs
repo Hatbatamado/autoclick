@@ -7,7 +7,7 @@ namespace click
 {
     static class Load_Save
     {
-        static public void Save(List<Click> click)
+        static public void Save()
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Text Files | *.txt";
@@ -22,20 +22,20 @@ namespace click
             catch (ArgumentException) { }
             if (sw != null)
             {
-                for (int i = 0; i < click.Count; i++)
-                    sw.WriteLine(click[i].Click_Out(i));
+                for (int i = 0; i < Design.Click.Count; i++)
+                    sw.WriteLine(Design.Click[i].Click_Out(i));
                 sw.Close();
             }
         }
 
-        static public List<Click> Load(List<Click> click, RichTextBox rt)
+        static public void Load(RichTextBox rt)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Text Files | *.txt";
             ofd.DefaultExt = ".txt";
             ofd.ShowDialog();
 
-            click = new List<Click>();
+            Design.Click = new List<Click>();
             rt.Text = "";
             int a = 0;
             StreamReader sr = null;
@@ -48,12 +48,11 @@ namespace click
             {
                 while (!sr.EndOfStream)
                 {
-                    click.Add(Text_convert(sr.ReadLine()));
-                    rt.Text = rt.Text + click[click.Count - 1].Click_Out(a++) + '\n';
+                    Design.Click.Add(Text_convert(sr.ReadLine()));
+                    rt.Text = rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(a++) + '\n';
                 }
                 sr.Close();
             }
-            return click;
         }
 
         static private Click Text_convert(string a)

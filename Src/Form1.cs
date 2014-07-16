@@ -25,10 +25,10 @@ namespace click
                 switch (Getkey(m.LParam))
                 {
                     case Keys.F6:
-                        Add_Del_Assign.Assign(Design.X, Design.Y);
+                        Add_Del_Assign.Assign();
                         break;
                     case Keys.F7:
-                        Start_Tick.Start(Design.Click, Design.Glob_repeat);
+                        Start_Tick.Start();
                         break;
                 }
             base.WndProc(ref m);
