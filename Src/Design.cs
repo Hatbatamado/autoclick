@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -74,6 +75,10 @@ namespace click
             Button load = new Button();
             load = Designn("Load", new Point(315, 400), -1, new Size(50, 22));
             load.Click += load_Click;
+            //---------------------------------------------------
+            Button help = new Button();
+            help = Designn("Help", new Point(315, 430), -1, new Size(50, 22));
+            help.Click += help_Click;
             //---------------------------------------------------
             //
             //Textboxes:
@@ -154,6 +159,11 @@ namespace click
         static void start_Click(object sender, EventArgs e)
         {
             Start_Tick.Start();
+        }
+
+        static void help_Click(object sender, EventArgs e)
+        {
+            Help.Help_out();
         }
         #endregion
 
