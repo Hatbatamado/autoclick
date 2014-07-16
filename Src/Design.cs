@@ -33,7 +33,6 @@ namespace click
             set { Design.click = value; }
         }
         static Form mainform;
-        enum Objs { Button, Textbox };
 
         static public void INIT(Form form)
         {
