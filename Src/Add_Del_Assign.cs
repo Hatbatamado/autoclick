@@ -61,6 +61,8 @@ namespace click
                 for (int i = 0; i < Design.Click.Count; i++)
                     rt.Text = rt.Text + Design.Click[i].Click_Out(i) + '\n';
             }
+            if (rt.Text == "")
+                del_lane.Text = "";
         }
 
         static public void Assign()
