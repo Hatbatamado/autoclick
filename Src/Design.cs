@@ -101,15 +101,15 @@ namespace click
             //---------------------------------------------------
             Designn("Repeat", new Point(10, 105), new Size(45, 22));
             //---------------------------------------------------
-            Designn("Coordinates:", new Point(95, 144), new Size(75, 22));
+            Designn("Coordinates:", new Point(95, 144), new Size(75, 16));
             //---------------------------------------------------
-            Designn("delay (ms):", new Point(185, 144), new Size(60, 22));
+            Designn("delay (ms):", new Point(185, 144), new Size(60, 16));
             //---------------------------------------------------
-            Designn("repeat:", new Point(280, 144), new Size(0, 0));
+            Designn("repeat:", new Point(280, 144), new Size(42, 16));
             //---------------------------------------------------
             Designn("Repeat full process:", new Point(240, 45), new Size(110, 22));
             //---------------------------------------------------
-            Designn("No.:", new Point(47, 144), new Size(0, 0));
+            Designn("No.:", new Point(47, 144), new Size(28, 16));
             //---------------------------------------------------
             Designn("Delete No.:", new Point(75, 375), new Size(62, 22));
             //---------------------------------------------------
