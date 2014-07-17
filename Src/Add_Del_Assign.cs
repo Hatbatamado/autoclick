@@ -6,7 +6,6 @@ namespace click
 {
     static class Add_Del_Assign
     {
-        static int elements = 0;
         static public void Add(TextBox delay, TextBox repeat, RichTextBox rt)
         {
             int X = -1;
@@ -37,8 +36,7 @@ namespace click
             {
                 //--------------------------------------------------- 
                 Design.Click.Add(new Click((uint)X, (uint)Y, d, r));
-                rt.Text = rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(elements) + '\n';
-                elements++;
+                rt.Text = rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(Design.Click.Count - 1) + '\n';
                 //--------------------------------------------------- 
                 rt.SelectionStart = rt.Text.Length;
                 rt.ScrollToCaret();

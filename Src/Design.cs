@@ -86,9 +86,9 @@ namespace click
             //---------------------------------------------------
             y = Designn(new Point(30, 42), new Size(0,0), "");
             //---------------------------------------------------
-            delay = Designn(new Point(55, 72), new Size(75, 22), "1000");
+            delay = Designn(new Point(45, 72), new Size(85, 22), "1000");
             //---------------------------------------------------
-            repeat = Designn(new Point(55, 102), new Size(75, 22), "1");
+            repeat = Designn(new Point(45, 102), new Size(85, 22), "1");
             //---------------------------------------------------
             glob_repeat = Designn(new Point(350, 42), new Size(50, 22), "0");
             //---------------------------------------------------
@@ -103,15 +103,15 @@ namespace click
             //---------------------------------------------------
             Designn("delay:", new Point(10, 75), new Size(36, 22));           
             //---------------------------------------------------
-            Designn("Repeat", new Point(10, 105), new Size(45, 22));
+            Designn("click:", new Point(10, 105), new Size(45, 22));
             //---------------------------------------------------
             Designn("Coordinates:", new Point(95, 144), new Size(75, 16));
             //---------------------------------------------------
             Designn("delay (ms):", new Point(185, 144), new Size(60, 16));
             //---------------------------------------------------
-            Designn("repeat:", new Point(280, 144), new Size(42, 16));
+            Designn("click:", new Point(285, 144), new Size(42, 16));
             //---------------------------------------------------
-            Designn("Repeat full process:", new Point(240, 45), new Size(110, 22));
+            Designn("Full process run:", new Point(260, 45), new Size(110, 22));
             //---------------------------------------------------
             Designn("No.:", new Point(47, 144), new Size(28, 16));
             //---------------------------------------------------
