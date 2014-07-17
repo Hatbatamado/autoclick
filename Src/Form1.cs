@@ -10,7 +10,7 @@ namespace click
         public Form1()
         {
             InitializeComponent();
-            Design.INIT(this);
+            Design.INIT(this, 0);
         }        
 
         #region Global key functions

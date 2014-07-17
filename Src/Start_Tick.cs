@@ -26,6 +26,7 @@ namespace click
 
         static public void Start()
         {
+            Design.INIT(Design.Mainform, 1);
             if (!init)
             {
                 time = new Timer();
@@ -55,6 +56,7 @@ namespace click
                 if (run)
                     run = false;
                 time.Stop();
+                Design.INIT(Design.Mainform, 2);
             }
             else
             {

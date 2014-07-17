@@ -34,99 +34,110 @@ namespace click
         }
         static Form mainform;
 
-        static public void INIT(Form form)
+        public static Form Mainform
         {
-            #region design
-            mainform = form;
-            //---------------------------------------------------
-            //
-            //Form:
-            //
-            form.KeyPreview = true; //MUST HAVE for the buttons
-            form.Text = "Auto-clicker by Nakia";
-            //---------------------------------------------------
-            form.Location = new Point(Screen.GetWorkingArea(form).Width - 550, 150);
-            form.Size = new Size(450, 500);
-            //---------------------------------------------------
-            //
-            //Buttons:
-            //
-            Button assign = new Button();
-            assign = Designn("Assign (F6)", new Point(140, 10), 1, new Size(0, 0));
-            assign.Click += assign_Click; 
-            //---------------------------------------------------
-            Button add = new Button();
-            add = Designn("Add", new Point(140, 100), 0, new Size(0,0));
-            add.Click += add_Click;
-            //---------------------------------------------------
-            Button start = new Button();
-            start = Designn("Start (F7)", new Point(275, 100), 2, new Size(0,0));
-            start.Click += start_Click;
-            //---------------------------------------------------
-            Button del_l = new Button();
-            del_l = Designn("Delete", new Point(180, 370), -1, new Size(50, 22));
-            del_l.Click += del_l_Click;
-            //---------------------------------------------------
-            Button save = new Button();
-            save = Designn("Save", new Point(315, 370), -1, new Size(50, 22));
-            save.Click += save_Click;
-            //---------------------------------------------------
-            Button load = new Button();
-            load = Designn("Load", new Point(315, 400), -1, new Size(50, 22));
-            load.Click += load_Click;
-            //---------------------------------------------------
-            Button help = new Button();
-            help = Designn("Help", new Point(315, 430), -1, new Size(50, 22));
-            help.Click += help_Click;
-            //---------------------------------------------------
-            //
-            //Textboxes:
-            //
-            x = Designn(new Point(30, 12), new Size(0,0), "");
-            //---------------------------------------------------
-            y = Designn(new Point(30, 42), new Size(0,0), "");
-            //---------------------------------------------------
-            delay = Designn(new Point(45, 72), new Size(85, 22), "1000");
-            //---------------------------------------------------
-            repeat = Designn(new Point(45, 102), new Size(85, 22), "1");
-            //---------------------------------------------------
-            glob_repeat = Designn(new Point(350, 42), new Size(50, 22), "0");
-            //---------------------------------------------------
-            del_lane = Designn(new Point(140, 372), new Size(35, 22), "");
-            //---------------------------------------------------
-            //
-            //Lablels:
-            //
-            Designn("X:", new Point(10, 15), new Size(0,0));
-            //---------------------------------------------------
-            Designn("Y:", new Point(10, 45), new Size(0, 0));
-            //---------------------------------------------------
-            Designn("delay:", new Point(10, 75), new Size(36, 22));           
-            //---------------------------------------------------
-            Designn("click:", new Point(10, 105), new Size(45, 22));
-            //---------------------------------------------------
-            Designn("Coordinates:", new Point(95, 144), new Size(75, 16));
-            //---------------------------------------------------
-            Designn("delay (ms):", new Point(185, 144), new Size(60, 16));
-            //---------------------------------------------------
-            Designn("click:", new Point(285, 144), new Size(42, 16));
-            //---------------------------------------------------
-            Designn("Full process run:", new Point(260, 45), new Size(110, 22));
-            //---------------------------------------------------
-            Designn("No.:", new Point(47, 144), new Size(28, 16));
-            //---------------------------------------------------
-            Designn("Delete No.:", new Point(75, 375), new Size(62, 22));
-            //---------------------------------------------------
-            //
-            //RichTextBox:
-            //
-            rt = new RichTextBox();
-            form.Controls.Add(rt);
-            rt.Location = new Point(50, 160);
-            rt.Size = new Size(325, 200);  
-            //---------------------------------------------------
-            GlobalKeys.Detect(form);
-            #endregion
+            get { return Design.mainform; }
+        }
+
+        static public void INIT(Form form, int what)
+        {
+            if (what == 0)
+            {
+                #region design
+                //
+                //Form:
+                //
+                mainform = form;
+                form.KeyPreview = true; //MUST HAVE for the buttons
+                form.Text = "Auto-clicker by Nakia";
+                //---------------------------------------------------
+                form.Location = new Point(Screen.GetWorkingArea(form).Width - 550, 150);
+                form.Size = new Size(450, 500);
+                //---------------------------------------------------
+                //
+                //Buttons:
+                //
+                Button assign = new Button();
+                assign = Designn("Assign (F6)", new Point(140, 10), 1, new Size(0, 0));
+                assign.Click += assign_Click;
+                //---------------------------------------------------
+                Button add = new Button();
+                add = Designn("Add", new Point(140, 100), 0, new Size(0, 0));
+                add.Click += add_Click;
+                //---------------------------------------------------
+                Button start = new Button();
+                start = Designn("Start (F7)", new Point(275, 100), 2, new Size(0, 0));
+                start.Click += start_Click;
+                //---------------------------------------------------
+                Button del_l = new Button();
+                del_l = Designn("Delete", new Point(180, 370), -1, new Size(50, 22));
+                del_l.Click += del_l_Click;
+                //---------------------------------------------------
+                Button save = new Button();
+                save = Designn("Save", new Point(315, 370), -1, new Size(50, 22));
+                save.Click += save_Click;
+                //---------------------------------------------------
+                Button load = new Button();
+                load = Designn("Load", new Point(315, 400), -1, new Size(50, 22));
+                load.Click += load_Click;
+                //---------------------------------------------------
+                Button help = new Button();
+                help = Designn("Help", new Point(315, 430), -1, new Size(50, 22));
+                help.Click += help_Click;
+                //---------------------------------------------------
+                //
+                //Textboxes:
+                //
+                x = Designn(new Point(30, 12), new Size(0, 0), "");
+                //---------------------------------------------------
+                y = Designn(new Point(30, 42), new Size(0, 0), "");
+                //---------------------------------------------------
+                delay = Designn(new Point(45, 72), new Size(85, 22), "1000");
+                //---------------------------------------------------
+                repeat = Designn(new Point(45, 102), new Size(85, 22), "1");
+                //---------------------------------------------------
+                glob_repeat = Designn(new Point(350, 42), new Size(50, 22), "0");
+                //---------------------------------------------------
+                del_lane = Designn(new Point(140, 372), new Size(35, 22), "");
+                //---------------------------------------------------
+                //
+                //Lablels:
+                //
+                Designn("X:", new Point(10, 15), new Size(0, 0));
+                //---------------------------------------------------
+                Designn("Y:", new Point(10, 45), new Size(0, 0));
+                //---------------------------------------------------
+                Designn("delay:", new Point(10, 75), new Size(36, 22));
+                //---------------------------------------------------
+                Designn("click:", new Point(10, 105), new Size(45, 22));
+                //---------------------------------------------------
+                Designn("Coordinates:", new Point(95, 144), new Size(75, 16));
+                //---------------------------------------------------
+                Designn("delay (ms):", new Point(185, 144), new Size(60, 16));
+                //---------------------------------------------------
+                Designn("click:", new Point(285, 144), new Size(42, 16));
+                //---------------------------------------------------
+                Designn("Full process run:", new Point(260, 45), new Size(110, 22));
+                //---------------------------------------------------
+                Designn("No.:", new Point(47, 144), new Size(28, 16));
+                //---------------------------------------------------
+                Designn("Delete No.:", new Point(75, 375), new Size(62, 22));
+                //---------------------------------------------------
+                //
+                //RichTextBox:
+                //
+                rt = new RichTextBox();
+                form.Controls.Add(rt);
+                rt.Location = new Point(50, 160);
+                rt.Size = new Size(325, 200);
+                //---------------------------------------------------
+                GlobalKeys.Detect(form);
+                #endregion
+            }
+            else
+            {
+                Deny_Allow(what);
+            }
         }
 
         #region Button clicks
@@ -204,5 +215,36 @@ namespace click
                 label.Size = Size;
         }
         #endregion
+
+        static private void Deny_Allow(int what)
+        {
+            if (what == 1)
+            {
+                foreach (Object obj in mainform.Controls)
+                {
+                    if (obj is Button && (obj as Button).Text != "Start (F7)")
+                        (obj as Button).Enabled = false;
+                    else if (obj is Button && (obj as Button).Text == "Start (F7)")
+                        (obj as Button).Text = "Stop (F7)";
+                    else if (obj is TextBox)
+                        (obj as TextBox).Enabled = false;
+                }
+            }
+            if (what == 2)
+            {
+                foreach (Object obj in mainform.Controls)
+                {
+                    if (obj is Button && (obj as Button).Text != "Stop (F7)")
+                        (obj as Button).Enabled = true;
+                    else if (obj is Button && (obj as Button).Text == "Stop (F7)")
+                    {
+                        (obj as Button).Text = "Start (F7)";
+                        (obj as Button).Enabled = true;
+                    }
+                    else if (obj is TextBox)
+                        (obj as TextBox).Enabled = true;
+                }
+            }
+        }
     }
 }
