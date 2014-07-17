@@ -19,7 +19,12 @@ namespace click
             + "----But if you change it, then it will repeat only the times you wrote in it\n"
             + "7) By clicking on 'Start' or pushing the 'F7' key will start the clicking and pushing/clicking again will stop it\n\n"
             + "If you want to remove an clicking process from the list, then write it's No. next to the 'Delete' button and then click it\n\n"
-            + "If you want to save or load the process you can do it, by clicking on the appropriate button";
+            + "If you want to save or load the process you can do it, by clicking on the appropriate button\n\n"
+            + "Status while running: Current: X/Y/Z\n"
+            + "X: full process number\n"
+            + "Y: clicking list number\n"
+            + "Z: list item 'click' number\n"
+            + "All: summary of clicks";
 
         static public void Help_out()
         {
