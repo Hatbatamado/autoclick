@@ -18,11 +18,13 @@ namespace click
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
         //---------------------------------------------------
         static Timer time;
-        static bool run = false;
+        static bool run;
         static int step_r;
         static int step;
         static int step_glob_r;
         static bool init = false;
+        static Label current;
+        static int clicks;
 
         static public void Start()
         {
@@ -32,11 +34,17 @@ namespace click
                 time = new Timer();
                 time.Tick += time_Tick;
                 init = true;
+                run = false;
+                current = new Label();
+                current.Location = new Point(70, 415);
+                current.Size = new Size(75, 30);
+                Design.Mainform.Controls.Add(current);
             }
             if (Design.Click.Count > 0)
             {                
                 step = 0;
                 step_r = 0;
+                clicks = 0;
                 step_glob_r = 1;
                 //---------------------------------------------------
                 if (!run)
@@ -57,12 +65,14 @@ namespace click
                     run = false;
                 time.Stop();
                 Design.INIT(Design.Mainform, 2);
+                current.Text = "";
             }
             else
             {
                 Cursor.Position = new Point((int)Design.Click[step].X, (int)Design.Click[step].Y);
                 mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, Design.Click[step].X, Design.Click[step].Y, 0, 0);
                 step_r++;
+                Current();
                 if (Design.Click[step].Repeat == step_r)
                 {
                     step++;
@@ -95,6 +105,13 @@ namespace click
                     }
                 }
             }
+        }
+
+        static void Current()
+        {
+            clicks++;
+            current.Text = "Current: " + (step_glob_r - 1).ToString() + '/' + step + '/' +
+                step_r + "\nAll: " + clicks;
         }
     }
 }
