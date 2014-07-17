@@ -67,6 +67,7 @@ namespace click
                 //---------------------------------------------------
                 Button start = new Button();
                 start = Designn("Start (F7)", new Point(275, 100), 2, new Size(0, 0));
+                start.BackColor = Color.LightGreen;
                 start.Click += start_Click;
                 //---------------------------------------------------
                 Button del_l = new Button();
@@ -83,6 +84,7 @@ namespace click
                 //---------------------------------------------------
                 Button help = new Button();
                 help = Designn("Help", new Point(315, 430), -1, new Size(50, 22));
+                help.BackColor = Color.LightBlue;
                 help.Click += help_Click;
                 //---------------------------------------------------
                 //
@@ -225,7 +227,10 @@ namespace click
                     if (obj is Button && (obj as Button).Text != "Start (F7)")
                         (obj as Button).Enabled = false;
                     else if (obj is Button && (obj as Button).Text == "Start (F7)")
+                    {
                         (obj as Button).Text = "Stop (F7)";
+                        (obj as Button).BackColor = Color.Red;
+                    }
                     else if (obj is TextBox)
                         (obj as TextBox).Enabled = false;
                 }
@@ -240,6 +245,7 @@ namespace click
                     {
                         (obj as Button).Text = "Start (F7)";
                         (obj as Button).Enabled = true;
+                        (obj as Button).BackColor = Color.LightGreen;
                     }
                     else if (obj is TextBox)
                         (obj as TextBox).Enabled = true;
