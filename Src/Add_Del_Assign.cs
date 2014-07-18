@@ -36,6 +36,8 @@ namespace click
             {
                 //--------------------------------------------------- 
                 Design.Click.Add(new Click((uint)X, (uint)Y, d, r));
+                if (Design.Click.Count == 1)
+                    Enable_Disable(0);
                 rt.Text = rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(Design.Click.Count - 1) + '\n';
                 //--------------------------------------------------- 
                 rt.SelectionStart = rt.Text.Length;
@@ -61,12 +63,34 @@ namespace click
             }
             if (rt.Text == "")
                 del_lane.Text = "";
+            if (Design.Click.Count == 0)
+                Enable_Disable(1);
         }
 
         static public void Assign()
         {
             Design.X.Text = Cursor.Position.X.ToString();
             Design.Y.Text = Cursor.Position.Y.ToString();
+        }
+
+        static private void Enable_Disable(int what)
+        {
+            if (what == 0) // enable
+            {
+                foreach (Object obj in Design.Mainform.Controls)
+                {
+                    if (obj is Button && (obj as Button).Text == "Start (F7)")
+                        (obj as Button).Enabled = true;
+                }
+            }
+            if (what == 1) // disabel
+            {
+                foreach (Object obj in Design.Mainform.Controls)
+                {
+                    if (obj is Button && (obj as Button).Text == "Start (F7)")
+                        (obj as Button).Enabled = false;
+                }
+            }
         }
     }
 }

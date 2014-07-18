@@ -28,7 +28,6 @@ namespace click
 
         static public void Start()
         {
-            Design.INIT(Design.Mainform, 1);
             if (!init)
             {
                 time = new Timer();
@@ -41,7 +40,8 @@ namespace click
                 Design.Mainform.Controls.Add(current);
             }
             if (Design.Click.Count > 0)
-            {                
+            {
+                Design.INIT(Design.Mainform, 1);
                 step = 0;
                 step_r = 0;
                 clicks = 0;

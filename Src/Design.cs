@@ -68,6 +68,7 @@ namespace click
                 Button start = new Button();
                 start = Designn("Start (F7)", new Point(275, 100), 2, new Size(0, 0));
                 start.BackColor = Color.LightGreen;
+                start.Enabled = false;
                 start.Click += start_Click;
                 //---------------------------------------------------
                 Button del_l = new Button();
