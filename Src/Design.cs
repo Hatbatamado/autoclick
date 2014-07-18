@@ -133,6 +133,8 @@ namespace click
                 form.Controls.Add(rt);
                 rt.Location = new Point(50, 160);
                 rt.Size = new Size(325, 200);
+                rt.ReadOnly = true;
+                rt.BackColor = Color.White;
                 //---------------------------------------------------
                 GlobalKeys.Detect();
                 #endregion
