@@ -47,19 +47,27 @@ namespace click
 
         static public void Del(TextBox del_lane, RichTextBox rt)
         {
-            int del = -1;
-            try
+            if (del_lane.Text != "*")
             {
-                del = Convert.ToInt32(del_lane.Text);
+                int del = -1;
+                try
+                {
+                    del = Convert.ToInt32(del_lane.Text);
+                }
+                catch (FormatException)
+                { }
+                if (del > -1 && Design.Click.Count > del)
+                {
+                    Design.Click.RemoveAt(del);
+                    rt.Text = "";
+                    for (int i = 0; i < Design.Click.Count; i++)
+                        rt.Text = rt.Text + Design.Click[i].Click_Out(i) + '\n';
+                }
             }
-            catch (FormatException)
-            { }
-            if (del > -1 && Design.Click.Count > del)
+            else
             {
-                Design.Click.RemoveAt(del);
+                Design.Click.Clear();
                 rt.Text = "";
-                for (int i = 0; i < Design.Click.Count; i++)
-                    rt.Text = rt.Text + Design.Click[i].Click_Out(i) + '\n';
             }
             if (rt.Text == "")
                 del_lane.Text = "";
