@@ -18,13 +18,16 @@ namespace click
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
         //---------------------------------------------------
         static Timer time;
+        static Timer time_le;
         static bool run;
         static int step_r;
         static int step;
         static int step_glob_r;
+        static int clicks;
+        static int timel;
         static bool init = false;
         static Label current;
-        static int clicks;
+        static Label timeleft;
 
         static public void Start()
         {
@@ -32,12 +35,18 @@ namespace click
             {
                 time = new Timer();
                 time.Tick += time_Tick;
+                time_le = new Timer();
+                time_le.Interval = 100;
+                time_le.Tick += time_le_Tick;
                 init = true;
                 run = false;
                 current = new Label();
-                current.Location = new Point(70, 415);
-                current.Size = new Size(75, 30);
+                current.Location = new Point(70, 400);
+                current.Size = new Size(100, 30);
+                timeleft = new Label();
+                timeleft.Location = new Point(70, 430);
                 Design.Mainform.Controls.Add(current);
+                Design.Mainform.Controls.Add(timeleft);
             }
             if (Design.Click.Count > 0)
             {
@@ -54,6 +63,7 @@ namespace click
                 //---------------------------------------------------  
                 time.Interval = Design.Click[step].Delay;
                 time.Start();
+                Time_Left();
             }
         }
 
@@ -66,6 +76,7 @@ namespace click
                 time.Stop();
                 Design.INIT(Design.Mainform, 2);
                 current.Text = "";
+                timeleft.Text = "";
             }
             else
             {
@@ -81,6 +92,7 @@ namespace click
                         step_r = 0;
                         time.Interval = Design.Click[step].Delay;
                         time.Start();
+                        Time_Left();
                     }
                     else
                     {
@@ -91,6 +103,7 @@ namespace click
                             step_r = 0;
                             time.Interval = Design.Click[step].Delay;
                             time.Start();
+                            Time_Left();
                         }
                         else if (temp > step_glob_r)
                         {
@@ -99,6 +112,7 @@ namespace click
                             step_glob_r++;
                             time.Interval = Design.Click[step].Delay;
                             time.Start();
+                            Time_Left();
                         }
                         else
                             run = false;
@@ -112,6 +126,26 @@ namespace click
             clicks++;
             current.Text = "Current: " + (step_glob_r - 1).ToString() + '/' + step + '/' +
                 step_r + "\nAll: " + clicks;
+        }
+
+        static void Time_Left()
+        {
+            if (run)
+            {
+                timel = Design.Click[step].Delay;
+                time_le.Start();
+            }
+        }
+
+        static void time_le_Tick(object sender, EventArgs e)
+        {
+            if (run && timel >= 0)
+            {
+                timeleft.Text = "Time left: " + timel + " ms";
+                timel -= 100;
+            }
+            else
+                time_le.Stop();
         }
     }
 }
