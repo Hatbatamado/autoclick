@@ -25,13 +25,15 @@ namespace click
                 switch (Getkey(m.LParam))
                 {
                     case Keys.F6:
-                        Add_Del_Assign.Assign();
+                        if (Start_Tick.Run == false)
+                            Add_Del_Assign.Assign();
                         break;
                     case Keys.F7:
                         Start_Tick.Start();
                         break;
                     case Keys.F8:
-                        Add_Del_Assign.Add();
+                        if (Start_Tick.Run == false)
+                            Add_Del_Assign.Add();
                         break;
                 }
             base.WndProc(ref m);

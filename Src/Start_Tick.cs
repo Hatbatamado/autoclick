@@ -20,6 +20,11 @@ namespace click
         static Timer time;
         static Timer time_le;
         static bool run;
+
+        public static bool Run
+        {
+            get { return Start_Tick.run; }
+        }
         static int step_r;
         static int step;
         static int step_glob_r;
@@ -42,9 +47,10 @@ namespace click
                 run = false;
                 current = new Label();
                 current.Location = new Point(70, 400);
-                current.Size = new Size(100, 24);
+                current.Size = new Size(120, 24);
                 timeleft = new Label();
                 timeleft.Location = new Point(70, 426);
+                timeleft.Size = new Size(150, 22);
                 Design.Mainform.Controls.Add(current);
                 Design.Mainform.Controls.Add(timeleft);
             }
