@@ -18,7 +18,17 @@ namespace click
             get { return Design.y; }
         }
         static private TextBox delay;
+
+        public static TextBox Delay
+        {
+            get { return Design.delay; }
+        }
         static private TextBox repeat;
+
+        public static TextBox Repeat
+        {
+            get { return Design.repeat; }
+        }
         static private TextBox glob_repeat;
         public static TextBox Glob_repeat
         {
@@ -26,6 +36,11 @@ namespace click
         }
         static private TextBox del_lane;
         static private RichTextBox rt;
+
+        public static RichTextBox Rt
+        {
+            get { return Design.rt; }
+        }
         static private List<Click> click = new List<Click>();
         internal static List<Click> Click
         {
@@ -62,7 +77,7 @@ namespace click
                 assign.Click += assign_Click;
                 //---------------------------------------------------
                 Button add = new Button();
-                add = Designn("Add", new Point(140, 100), 0, new Size(0, 0));
+                add = Designn("Add (F8)", new Point(140, 100), 0, new Size(0, 0));
                 add.Click += add_Click;
                 //---------------------------------------------------
                 Button start = new Button();
@@ -148,12 +163,12 @@ namespace click
         #region Button clicks
         static void add_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Add(delay, repeat, rt);
+            Add_Del_Assign.Add();
         }
 
         static void del_l_Click(object sender, EventArgs e)
         {
-            Add_Del_Assign.Del(del_lane, rt);
+            Add_Del_Assign.Del(del_lane);
         }
 
         static void assign_Click(object sender, EventArgs e)
@@ -168,7 +183,7 @@ namespace click
 
         static void load_Click(object sender, EventArgs e)
         {
-            Load_Save.Load(rt);
+            Load_Save.Load();
         }
 
         static void start_Click(object sender, EventArgs e)

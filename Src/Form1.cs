@@ -30,6 +30,9 @@ namespace click
                     case Keys.F7:
                         Start_Tick.Start();
                         break;
+                    case Keys.F8:
+                        Add_Del_Assign.Add();
+                        break;
                 }
             base.WndProc(ref m);
         }

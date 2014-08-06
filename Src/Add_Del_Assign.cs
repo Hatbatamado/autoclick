@@ -6,7 +6,7 @@ namespace click
 {
     static class Add_Del_Assign
     {
-        static public void Add(TextBox delay, TextBox repeat, RichTextBox rt)
+        static public void Add()
         {
             int X = -1;
             int Y = -1;
@@ -24,12 +24,12 @@ namespace click
             catch (FormatException) { }
             try
             {
-                d = Convert.ToInt32(delay.Text);
+                d = Convert.ToInt32(Design.Delay.Text);
             }
             catch (FormatException) { }
             try
             {
-                r = Convert.ToInt32(repeat.Text);
+                r = Convert.ToInt32(Design.Repeat.Text);
             }
             catch (FormatException) { }
             if (X != -1 && Y != -1 && d != -1 && r != -1)
@@ -38,14 +38,14 @@ namespace click
                 Design.Click.Add(new Click((uint)X, (uint)Y, d, r));
                 if (Design.Click.Count == 1)
                     Enable_Disable(0);
-                rt.Text = rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(Design.Click.Count - 1) + '\n';
+                Design.Rt.Text = Design.Rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(Design.Click.Count - 1) + '\n';
                 //--------------------------------------------------- 
-                rt.SelectionStart = rt.Text.Length;
-                rt.ScrollToCaret();
+                Design.Rt.SelectionStart = Design.Rt.Text.Length;
+                Design.Rt.ScrollToCaret();
             }
         }
 
-        static public void Del(TextBox del_lane, RichTextBox rt)
+        static public void Del(TextBox del_lane)
         {
             if (del_lane.Text != "*")
             {
@@ -59,17 +59,17 @@ namespace click
                 if (del > -1 && Design.Click.Count > del)
                 {
                     Design.Click.RemoveAt(del);
-                    rt.Text = "";
+                    Design.Rt.Text = "";
                     for (int i = 0; i < Design.Click.Count; i++)
-                        rt.Text = rt.Text + Design.Click[i].Click_Out(i) + '\n';
+                        Design.Rt.Text = Design.Rt.Text + Design.Click[i].Click_Out(i) + '\n';
                 }
             }
             else
             {
                 Design.Click.Clear();
-                rt.Text = "";
+                Design.Rt.Text = "";
             }
-            if (rt.Text == "")
+            if (Design.Rt.Text == "")
                 del_lane.Text = "";
             if (Design.Click.Count == 0)
                 Enable_Disable(1);

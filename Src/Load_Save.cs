@@ -28,7 +28,7 @@ namespace click
             }
         }
 
-        static public void Load(RichTextBox rt)
+        static public void Load()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Text Files | *.txt";
@@ -36,7 +36,7 @@ namespace click
             ofd.ShowDialog();
 
             Design.Click = new List<Click>();
-            rt.Text = "";
+            Design.Rt.Text = "";
             int a = 0;
             StreamReader sr = null;
             try
@@ -49,7 +49,7 @@ namespace click
                 while (!sr.EndOfStream)
                 {
                     Design.Click.Add(Text_convert(sr.ReadLine()));
-                    rt.Text = rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(a++) + '\n';
+                    Design.Rt.Text = Design.Rt.Text + Design.Click[Design.Click.Count - 1].Click_Out(a++) + '\n';
                 }
                 sr.Close();
             }
