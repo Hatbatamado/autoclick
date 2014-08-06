@@ -42,9 +42,9 @@ namespace click
                 run = false;
                 current = new Label();
                 current.Location = new Point(70, 400);
-                current.Size = new Size(100, 30);
+                current.Size = new Size(100, 24);
                 timeleft = new Label();
-                timeleft.Location = new Point(70, 430);
+                timeleft.Location = new Point(70, 426);
                 Design.Mainform.Controls.Add(current);
                 Design.Mainform.Controls.Add(timeleft);
             }
@@ -60,23 +60,34 @@ namespace click
                     run = true;
                 else
                     run = false;
-                //---------------------------------------------------  
-                time.Interval = Design.Click[step].Delay;
-                time.Start();
-                Time_Left();
+                //--------------------------------------------------- 
+                if (run)
+                {
+                    time.Interval = Design.Click[step].Delay;
+                    time.Start();
+                    Time_Left();
+                }
+                else
+                {
+                    Run_over();
+                }
             }
+        }
+
+        static void Run_over()
+        {
+            time.Stop();
+            time_le.Stop();
+            Design.INIT(Design.Mainform, 2);
+            current.Text = "";
+            timeleft.Text = "";
         }
 
         static void time_Tick(object sender, EventArgs e)
         {
-            if (!run || step == Design.Click.Count)
+            if (step == Design.Click.Count)
             {
-                if (run)
-                    run = false;
-                time.Stop();
-                Design.INIT(Design.Mainform, 2);
-                current.Text = "";
-                timeleft.Text = "";
+                Run_over();
             }
             else
             {
@@ -145,7 +156,9 @@ namespace click
                 timel -= 100;
             }
             else
+            {
                 time_le.Stop();
+            }
         }
     }
 }
