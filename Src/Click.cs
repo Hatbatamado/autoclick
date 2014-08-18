@@ -19,6 +19,7 @@ namespace click
         public int Delay
         {
             get { return delay; }
+            set { delay = value; }
         }
         int repeat;
         public int Repeat

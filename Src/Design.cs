@@ -35,6 +35,7 @@ namespace click
             get { return Design.glob_repeat; }
         }
         static private TextBox del_lane;
+        static private TextBox speed;
         static private RichTextBox rt;
 
         public static RichTextBox Rt
@@ -90,6 +91,16 @@ namespace click
                 del_l = Designn("Delete", new Point(180, 370), -1, new Size(50, 22));
                 del_l.Click += del_l_Click;
                 //---------------------------------------------------
+                Button speed_up = new Button();
+                speed_up = Designn("U", new Point(180, 400), -1, new Size(20, 22));
+                speed_up.BackColor = Color.LightSkyBlue;
+                speed_up.Click += speed_up_Click;
+                //---------------------------------------------------
+                Button speed_down = new Button();
+                speed_down = Designn("D", new Point(200, 400), -1, new Size(20, 22));
+                speed_down.BackColor = Color.Red;
+                speed_down.Click += speed_down_Click;
+                //---------------------------------------------------
                 Button save = new Button();
                 save = Designn("Save", new Point(315, 370), -1, new Size(50, 22));
                 save.Click += save_Click;
@@ -117,6 +128,8 @@ namespace click
                 glob_repeat = Designn(new Point(350, 42), new Size(50, 22), "0");
                 //---------------------------------------------------
                 del_lane = Designn(new Point(140, 372), new Size(35, 22), "");
+                //---------------------------------------------------
+                speed = Designn(new Point(140, 402), new Size(35, 22), "100");
                 //---------------------------------------------------
                 //
                 //Lablels:
@@ -157,6 +170,41 @@ namespace click
             else
             {
                 Deny_Allow(what);
+            }
+        }
+
+        static void speed_down_Click(object sender, EventArgs e)
+        {
+            Speed_change(false);
+        }
+
+        static void speed_up_Click(object sender, EventArgs e)
+        {
+            Speed_change(true);
+        }
+
+        static private void Speed_change(bool way)
+        {
+            if (click.Count > 0)
+            {
+                int number = 0;
+                for (int i = 0; i < click.Count; i++)
+                {
+                    try
+                    {
+                        number = Convert.ToInt32(speed.Text);
+                    }
+                    catch (FormatException) { }
+                    if (way) //UP
+                        click[i].Delay += number;
+                    else // DOWN
+                        click[i].Delay -= number;
+                    if (click[i].Delay < 0)
+                        click[i].Delay = 0;
+                }
+                rt.Text = "";
+                for (int j = 0; j < click.Count; j++)
+                    rt.Text += click[j].Click_Out(j) + "\n";
             }
         }
 
