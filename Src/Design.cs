@@ -36,6 +36,8 @@ namespace click
         }
         static private TextBox del_lane;
         static private TextBox speed;
+        static private TextBox swap_b;
+        static private TextBox swap_a;
         static private RichTextBox rt;
 
         public static RichTextBox Rt
@@ -44,6 +46,7 @@ namespace click
         }
         static private Button speed_up;
         static private Button speed_down;
+        static private Button swap;
         static private List<Click> click = new List<Click>();
         internal static List<Click> Click
         {
@@ -94,12 +97,12 @@ namespace click
                 del_l.Click += del_l_Click;
                 //---------------------------------------------------
                 speed_up = new Button();
-                speed_up = Designn("U", new Point(180, 400), -1, new Size(20, 22));
+                speed_up = Designn("U", new Point(180, 395), -1, new Size(20, 22));
                 speed_up.BackColor = Color.LightSkyBlue;
                 speed_up.Click += speed_up_Click;
                 //---------------------------------------------------
                 speed_down = new Button();
-                speed_down = Designn("D", new Point(200, 400), -1, new Size(20, 22));
+                speed_down = Designn("D", new Point(200, 395), -1, new Size(20, 22));
                 speed_down.BackColor = Color.Red;
                 speed_down.Click += speed_down_Click;
                 //---------------------------------------------------
@@ -116,6 +119,10 @@ namespace click
                 help.BackColor = Color.LightBlue;
                 help.Click += help_Click;
                 //---------------------------------------------------
+                swap = new Button();
+                swap = Designn("Swap", new Point(180, 420), -1, new Size(50, 22));
+                swap.Click += swap_Click;
+                //---------------------------------------------------
                 //
                 //Textboxes:
                 //
@@ -131,7 +138,11 @@ namespace click
                 //---------------------------------------------------
                 del_lane = Designn(new Point(140, 372), new Size(35, 22), "");
                 //---------------------------------------------------
-                speed = Designn(new Point(140, 402), new Size(35, 22), "100");
+                speed = Designn(new Point(140, 397), new Size(35, 22), "100");
+                //---------------------------------------------------
+                swap_b = Designn(new Point(140, 422), new Size(35, 22), "");
+                //---------------------------------------------------
+                swap_a = Designn(new Point(100, 422), new Size(35, 22), "");
                 //---------------------------------------------------
                 //
                 //Lablels:
@@ -175,41 +186,6 @@ namespace click
             }
         }
 
-        static void speed_down_Click(object sender, EventArgs e)
-        {
-            Speed_change(false);
-        }
-
-        static void speed_up_Click(object sender, EventArgs e)
-        {
-            Speed_change(true);
-        }
-
-        static private void Speed_change(bool way)
-        {
-            if (click.Count > 0)
-            {
-                int number = 0;
-                for (int i = 0; i < click.Count; i++)
-                {
-                    try
-                    {
-                        number = Convert.ToInt32(speed.Text);
-                    }
-                    catch (FormatException) { }
-                    if (way) //UP
-                        click[i].Delay += number;
-                    else // DOWN
-                        click[i].Delay -= number;
-                    if (click[i].Delay < 0)
-                        click[i].Delay = 0;
-                }
-                rt.Text = "";
-                for (int j = 0; j < click.Count; j++)
-                    rt.Text += click[j].Click_Out(j) + "\n";
-            }
-        }
-
         #region Button clicks
         static void add_Click(object sender, EventArgs e)
         {
@@ -244,6 +220,21 @@ namespace click
         static void help_Click(object sender, EventArgs e)
         {
             Help.Help_out();
+        }
+
+        static void speed_down_Click(object sender, EventArgs e)
+        {
+            Speed_change(false);
+        }
+
+        static void speed_up_Click(object sender, EventArgs e)
+        {
+            Speed_change(true);
+        }
+
+        static void swap_Click(object sender, EventArgs e)
+        {
+            Swap();
         }
         #endregion
 
@@ -286,6 +277,86 @@ namespace click
         }
         #endregion
 
+        static private void Speed_change(bool way)
+        {
+            if (click.Count > 0)
+            {
+                int number = 0;
+                for (int i = 0; i < click.Count; i++)
+                {
+                    try
+                    {
+                        number = Convert.ToInt32(speed.Text);
+                    }
+                    catch (FormatException) { }
+                    if (way) //UP
+                        click[i].Delay += number;
+                    else // DOWN
+                        click[i].Delay -= number;
+                    if (click[i].Delay < 0)
+                        click[i].Delay = 0;
+                }
+                rt.Text = "";
+                for (int j = 0; j < click.Count; j++)
+                    rt.Text += click[j].Click_Out(j) + "\n";
+            }
+        }
+
+        static private void Swap()
+        {
+            if (click.Count > 1)
+            {
+                int a = -2;
+                int b = -2;
+                Click temp;
+                Click temp_b;
+                try
+                {
+                    a = Convert.ToInt32(swap_a.Text);
+                }
+                catch (FormatException) { }
+                try
+                {
+                    b = Convert.ToInt32(swap_b.Text);
+                }
+                catch (FormatException) { }
+                if (a > -2 && b > -2 && a < click.Count && b < click.Count)
+                {
+                    if (a != -1 && b != -1)
+                    {
+                        temp = click[a];
+                        click[a] = click[b];
+                        click[b] = temp;
+                    }
+                    else if (a == -1 && b != -1)
+                    {
+                        temp = click[0];
+                        click[0] = click[b];
+                        for (int i = 1; i < click.Count; i++)
+                        {
+                            temp_b = click[i];
+                            click[i] = temp;
+                            temp = temp_b;
+                        }
+                    }
+                    else if (a != -1 && b == -1)
+                    {
+                        temp = click[0];
+                        click[0] = click[a];
+                        for (int i = 1; i < click.Count; i++)
+                        {
+                            temp_b = click[i];
+                            click[i] = temp;
+                            temp = temp_b;
+                        }
+                    }
+                }
+                rt.Text = "";
+                for (int j = 0; j < click.Count; j++)
+                    rt.Text += click[j].Click_Out(j) + "\n";
+            }
+        }
+
         static private void Deny_Allow(int what)
         {
             if (what == 1) // Started
@@ -305,6 +376,9 @@ namespace click
                 speed.Visible = false;
                 speed_down.Visible = false;
                 speed_up.Visible = false;
+                swap.Visible = false;
+                swap_a.Visible = false;
+                swap_b.Visible = false;
             }
             if (what == 2) // Stopped
             {
@@ -321,9 +395,12 @@ namespace click
                     else if (obj is TextBox)
                         (obj as TextBox).Enabled = true;
                 }
-                speed.Visible = false;
-                speed_down.Visible = false;
-                speed_up.Visible = false;
+                speed.Visible = true;
+                speed_down.Visible = true;
+                speed_up.Visible = true;
+                swap.Visible = true;
+                swap_a.Visible = true;
+                swap_b.Visible = true;
             }
         }
     }
