@@ -42,6 +42,8 @@ namespace click
         {
             get { return Design.rt; }
         }
+        static private Button speed_up;
+        static private Button speed_down;
         static private List<Click> click = new List<Click>();
         internal static List<Click> Click
         {
@@ -91,12 +93,12 @@ namespace click
                 del_l = Designn("Delete", new Point(180, 370), -1, new Size(50, 22));
                 del_l.Click += del_l_Click;
                 //---------------------------------------------------
-                Button speed_up = new Button();
+                speed_up = new Button();
                 speed_up = Designn("U", new Point(180, 400), -1, new Size(20, 22));
                 speed_up.BackColor = Color.LightSkyBlue;
                 speed_up.Click += speed_up_Click;
                 //---------------------------------------------------
-                Button speed_down = new Button();
+                speed_down = new Button();
                 speed_down = Designn("D", new Point(200, 400), -1, new Size(20, 22));
                 speed_down.BackColor = Color.Red;
                 speed_down.Click += speed_down_Click;
@@ -286,7 +288,7 @@ namespace click
 
         static private void Deny_Allow(int what)
         {
-            if (what == 1)
+            if (what == 1) // Started
             {
                 foreach (Object obj in mainform.Controls)
                 {
@@ -300,8 +302,11 @@ namespace click
                     else if (obj is TextBox)
                         (obj as TextBox).Enabled = false;
                 }
+                speed.Visible = false;
+                speed_down.Visible = false;
+                speed_up.Visible = false;
             }
-            if (what == 2)
+            if (what == 2) // Stopped
             {
                 foreach (Object obj in mainform.Controls)
                 {
@@ -316,6 +321,9 @@ namespace click
                     else if (obj is TextBox)
                         (obj as TextBox).Enabled = true;
                 }
+                speed.Visible = false;
+                speed_down.Visible = false;
+                speed_up.Visible = false;
             }
         }
     }

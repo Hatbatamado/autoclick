@@ -69,7 +69,9 @@ namespace click
                 //--------------------------------------------------- 
                 if (run)
                 {
-                    time.Interval = Design.Click[step].Delay;
+                    int check = Design.Click[step].Delay;
+                    if (check > 0)
+                        time.Interval = check;
                     time.Start();
                     Time_Left();
                 }
