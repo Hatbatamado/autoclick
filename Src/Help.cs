@@ -25,7 +25,12 @@ namespace click
             + "X: full process number\n"
             + "Y: clicking list number\n"
             + "Z: list item 'click' number\n"
-            + "All: summary of clicks";
+            + "All: summary of clicks\n\n"
+            + "Blue 'U' button = speed up\n"
+            + "Red 'D' button = speed down\n"
+            + "by clicking any of these two will increase / decrease the speed of all of the processes (by ms)\n\n"
+            + "'Swap' button swap the lines that number was written in the boxes next to it\n"
+            + "if you write -1 in one of the boxes then line number written in the other box will be the 0th line";
 
         static public void Help_out()
         {
