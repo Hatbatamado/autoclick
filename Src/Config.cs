@@ -18,6 +18,7 @@ namespace click
 
         static public int Config_settings(string what)
         {
+            Config_Read(); //all time reading, since it can be modified while running
             switch (what)
             {
                 case "assign":
@@ -68,7 +69,7 @@ namespace click
             sw.Close();
         }
 
-        static public void Config_Read()
+        static private void Config_Read()
         {
             string line;
             if (!File.Exists(conf))
@@ -132,8 +133,7 @@ namespace click
                                 break;
                             case 6:
                                 speed = 100;
-                                break;
-                                
+                                break;                                
                         }
                     }
                 }

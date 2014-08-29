@@ -101,16 +101,17 @@ namespace click
                 //Buttons:
                 //
                 Button assign = new Button();
-                assign = Designn("Assign (F6)", new Point(140, 30), 1, new Size(0, 0));
+                assign = Designn("Assign", new Point(140, 30), 1, new Size(0, 0));
                 assign.Click += assign_Click;
                 //---------------------------------------------------
                 Button add = new Button();
-                add = Designn("Add (F8)", new Point(140, 120), 0, new Size(0, 0));
+                add = Designn("Add", new Point(140, 120), 0, new Size(0, 0));
                 add.Click += add_Click;
                 //---------------------------------------------------
                 Button start = new Button();
-                start = Designn("Start (F7)", new Point(275, 120), 2, new Size(0, 0));
+                start = Designn("Start", new Point(275, 120), 2, new Size(0, 0));
                 start.BackColor = Color.LightGreen;
+                start.Name = "Start";
                 start.Enabled = false;
                 start.Click += start_Click;
                 //---------------------------------------------------
@@ -152,15 +153,19 @@ namespace click
                 //---------------------------------------------------
                 y = Designn(new Point(30, 62), new Size(0, 0), "");
                 //---------------------------------------------------
-                delay = Designn(new Point(45, 92), new Size(85, 22), "1000");
+                delay = Designn(new Point(45, 92), new Size(85, 22),
+                    Config.Config_settings("delay").ToString());
                 //---------------------------------------------------
-                repeat = Designn(new Point(45, 122), new Size(85, 22), "1");
+                repeat = Designn(new Point(45, 122), new Size(85, 22),
+                    Config.Config_settings("click").ToString());
                 //---------------------------------------------------
-                glob_repeat = Designn(new Point(350, 62), new Size(50, 22), "0");
+                glob_repeat = Designn(new Point(350, 62), new Size(50, 22),
+                    Config.Config_settings("process").ToString());
                 //---------------------------------------------------
                 del_lane = Designn(new Point(140, 392), new Size(35, 22), "");
                 //---------------------------------------------------
-                speed = Designn(new Point(140, 417), new Size(35, 22), "100");
+                speed = Designn(new Point(140, 417), new Size(35, 22),
+                    Config.Config_settings("speed").ToString());
                 //---------------------------------------------------
                 swap_b = Designn(new Point(140, 442), new Size(35, 22), "");
                 //---------------------------------------------------
@@ -396,10 +401,11 @@ namespace click
             {
                 foreach (Object obj in mainform.Controls)
                 {
-                    if (obj is Button && (obj as Button).Text != "Start (F7)")
+                    if (obj is Button && (obj as Button).Name != "Start")
                         (obj as Button).Enabled = false;
-                    else if (obj is Button && (obj as Button).Text == "Start (F7)")
+                    else if (obj is Button && (obj as Button).Name == "Start")
                     {
+                        //TODO: change this text
                         (obj as Button).Text = "Stop (F7)";
                         (obj as Button).BackColor = Color.Red;
                     }
@@ -417,10 +423,11 @@ namespace click
             {
                 foreach (Object obj in mainform.Controls)
                 {
-                    if (obj is Button && (obj as Button).Text != "Stop (F7)")
+                    if (obj is Button && (obj as Button).Name != "Start")
                         (obj as Button).Enabled = true;
-                    else if (obj is Button && (obj as Button).Text == "Stop (F7)")
+                    else if (obj is Button && (obj as Button).Name == "Start")
                     {
+                        //TODO: change this text
                         (obj as Button).Text = "Start (F7)";
                         (obj as Button).Enabled = true;
                         (obj as Button).BackColor = Color.LightGreen;

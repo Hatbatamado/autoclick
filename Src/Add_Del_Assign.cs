@@ -87,7 +87,7 @@ namespace click
             {
                 foreach (Object obj in Design.Mainform.Controls)
                 {
-                    if (obj is Button && (obj as Button).Text == "Start (F7)")
+                    if (obj is Button && (obj as Button).Name == "Start")
                         (obj as Button).Enabled = true;
                 }
             }
@@ -95,7 +95,7 @@ namespace click
             {
                 foreach (Object obj in Design.Mainform.Controls)
                 {
-                    if (obj is Button && (obj as Button).Text == "Start (F7)")
+                    if (obj is Button && (obj as Button).Name == "Start")
                         (obj as Button).Enabled = false;
                 }
             }

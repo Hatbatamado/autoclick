@@ -12,9 +12,12 @@ namespace click
 
         static public void Detect()
         {
-            assign_glob = new GlobalKey(Keys.F6, Design.Mainform);
-            start_glob = new GlobalKey(Keys.F7, Design.Mainform);
-            add_glob = new GlobalKey(Keys.F8, Design.Mainform);
+            assign_glob = new GlobalKey((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("assign").ToString()), Design.Mainform);
+            start_glob = new GlobalKey((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("start").ToString()), Design.Mainform);
+            add_glob = new GlobalKey((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("add").ToString()), Design.Mainform);
             assign_glob.Register();
             start_glob.Register();
             add_glob.Register();
