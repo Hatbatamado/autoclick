@@ -46,10 +46,10 @@ namespace click
                 init = true;
                 run = false;
                 current = new Label();
-                current.Location = new Point(70, 400);
+                current.Location = new Point(70, 420);
                 current.Size = new Size(120, 24);
                 timeleft = new Label();
-                timeleft.Location = new Point(70, 426);
+                timeleft.Location = new Point(70, 446);
                 timeleft.Size = new Size(150, 22);
                 Design.Mainform.Controls.Add(current);
                 Design.Mainform.Controls.Add(timeleft);

@@ -406,7 +406,7 @@ namespace click
                     else if (obj is Button && (obj as Button).Name == "Start")
                     {
                         //TODO: change this text
-                        (obj as Button).Text = "Stop (F7)";
+                        (obj as Button).Text = "Stop";
                         (obj as Button).BackColor = Color.Red;
                     }
                     else if (obj is TextBox)
@@ -428,7 +428,7 @@ namespace click
                     else if (obj is Button && (obj as Button).Name == "Start")
                     {
                         //TODO: change this text
-                        (obj as Button).Text = "Start (F7)";
+                        (obj as Button).Text = "Start";
                         (obj as Button).Enabled = true;
                         (obj as Button).BackColor = Color.LightGreen;
                     }
