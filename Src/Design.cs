@@ -84,9 +84,11 @@ namespace click
                 ToolStripMenuItem file = new ToolStripMenuItem("File");
                 //---
                 ToolStripMenuItem options = new ToolStripMenuItem("Options");
+                options.ShortcutKeys = Keys.Control | Keys.O;
                 options.Click += options_Click;
                 //---
                 ToolStripMenuItem exit = new ToolStripMenuItem("Exit");
+                exit.ShortcutKeys = Keys.Alt | Keys.F4;
                 exit.Click += exit_Click;
                 //---
                 ToolStripMenuItem[] filemenu = { options, exit };
@@ -208,12 +210,13 @@ namespace click
 
         static void exit_Click(object sender, EventArgs e)
         {
-            
+            Application.Exit();
         }
 
         static void options_Click(object sender, EventArgs e)
         {
-            
+            Options options = new Options();
+            options.Show();
         }
 
         #region Button clicks

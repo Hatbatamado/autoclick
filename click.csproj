@@ -47,6 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\Add_Del_Assign.cs" />
     <Compile Include="Src\Click.cs" />
+    <Compile Include="Src\Config.cs" />
     <Compile Include="Src\Design.cs" />
     <Compile Include="Src\Form1.cs">
       <SubType>Form</SubType>
@@ -58,6 +59,12 @@
     <Compile Include="Src\GlobalKeys.cs" />
     <Compile Include="Src\Help.cs" />
     <Compile Include="Src\Load_Save.cs" />
+    <Compile Include="Src\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Src\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="Src\Program.cs" />
     <Compile Include="Src\Start_Tick.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
