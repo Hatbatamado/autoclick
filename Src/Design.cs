@@ -469,47 +469,47 @@ namespace click
             form.Controls.Add(options);
             //--------------
             //Labels
-            Design.Designn(form, "Assign:", new Point(50, 50), new Size(50, 22));
-            Design.Designn(form, "Add:", new Point(50, 75), new Size(50, 22));
-            Design.Designn(form, "Start:", new Point(50, 100), new Size(50, 22));
-            Design.Designn(form, "Delay:", new Point(50, 125), new Size(50, 22));
-            Design.Designn(form, "Repeat:", new Point(50, 150), new Size(50, 22));
-            Design.Designn(form, "Process:", new Point(50, 175), new Size(50, 22));
-            Design.Designn(form, "Speed:", new Point(50, 200), new Size(50, 22));
+            Designn(form, "Assign:", new Point(50, 50), new Size(50, 22));
+            Designn(form, "Add:", new Point(50, 75), new Size(50, 22));
+            Designn(form, "Start:", new Point(50, 100), new Size(50, 22));
+            Designn(form, "Delay:", new Point(50, 125), new Size(50, 22));
+            Designn(form, "Repeat:", new Point(50, 150), new Size(50, 22));
+            Designn(form, "Process:", new Point(50, 175), new Size(50, 22));
+            Designn(form, "Speed:", new Point(50, 200), new Size(50, 22));
             //--------------
             //Buttons
             assign = new Button();
-            assign = Design.Designn(form, ((Keys)Enum.Parse(typeof(Keys),
+            assign = Designn(form, ((Keys)Enum.Parse(typeof(Keys),
                 Config.Config_settings("assign").ToString())).ToString(),
                 new Point(100, 47), -1, new Size(114, 22));            
             //--------------
             add = new Button();
-            add = Design.Designn(form, ((Keys)Enum.Parse(typeof(Keys),
+            add = Designn(form, ((Keys)Enum.Parse(typeof(Keys),
                 Config.Config_settings("add").ToString())).ToString(),
                 new Point(100, 72), -1, new Size(114, 22));            
             //--------------
             start = new Button();
-            start = Design.Designn(form, ((Keys)Enum.Parse(typeof(Keys),
+            start = Designn(form, ((Keys)Enum.Parse(typeof(Keys),
                 Config.Config_settings("start").ToString())).ToString(),
                 new Point(100, 97), -1, new Size(114, 22));            
             //---
-            defaul = Design.Designn(form, "Default", new Point(40, 225),
+            defaul = Designn(form, "Default", new Point(40, 225),
                 -1, new Size(60, 22));            
             //---
-            save = Design.Designn(form, "Save", new Point(110, 225),
+            save = Designn(form, "Save", new Point(110, 225),
                 -1, new Size(60, 22));            
             //---
-            cancel = Design.Designn(form, "Cancel", new Point(180, 225),
+            cancel = Designn(form, "Cancel", new Point(180, 225),
                 -1, new Size(60, 22));
             //--------------
             //Textboxes
-            d = Design.Designn(form, new Point(100, 122), new Size(114, 22),
+            d = Designn(form, new Point(100, 122), new Size(114, 22),
                 Config.Config_settings("delay").ToString());
-            c = Design.Designn(form, new Point(100, 147), new Size(114, 22),
+            c = Designn(form, new Point(100, 147), new Size(114, 22),
                 Config.Config_settings("click").ToString());
-            p = Design.Designn(form, new Point(100, 172), new Size(114, 22),
+            p = Designn(form, new Point(100, 172), new Size(114, 22),
                 Config.Config_settings("process").ToString());
-            s = Design.Designn(form, new Point(100, 197), new Size(114, 22),
+            s = Designn(form, new Point(100, 197), new Size(114, 22),
                 Config.Config_settings("speed").ToString());
         }
 
