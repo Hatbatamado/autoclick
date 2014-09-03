@@ -213,6 +213,14 @@ namespace click
             }
         }
 
+        static public void Design_Refresh()
+        {
+            delay.Text = Config.Config_settings("delay").ToString();
+            repeat.Text = Config.Config_settings("click").ToString();
+            glob_repeat.Text = Config.Config_settings("process").ToString();
+            speed.Text = Config.Config_settings("speed").ToString();
+        }
+
         static void exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -221,6 +229,7 @@ namespace click
         static void options_Click(object sender, EventArgs e)
         {
             Options options = new Options();
+            GlobalKeys.Stop_Detect();
             options.Show();
         }
 

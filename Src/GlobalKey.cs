@@ -9,6 +9,8 @@ namespace click
     {
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+        [DllImport("user32.dll")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         private int modifier = 0x0000;
         private int key;
@@ -25,6 +27,11 @@ namespace click
         public bool Register()
         {
             return RegisterHotKey(hWnd, id, modifier, key);
+        }
+
+        public bool Unregister()
+        {
+            return UnregisterHotKey(hWnd, id);
         }
     }
 }

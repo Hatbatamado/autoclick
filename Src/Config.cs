@@ -61,7 +61,7 @@ namespace click
             StreamWriter sw = new StreamWriter(conf, false);
             sw.WriteLine("Assign:" + assign);
             sw.WriteLine("Add:" + add);
-            sw.WriteLine("Start" + start);
+            sw.WriteLine("Start:" + start);
             sw.WriteLine("Delay:" + delay);
             sw.WriteLine("Click:" + click);
             sw.WriteLine("Process:" + process);
@@ -139,6 +139,19 @@ namespace click
                 }
                 sr.Close();
             }
+        }
+
+        static public void Config_Change(Keys assign1, Keys add1, Keys start1,
+            string delay1, string click1, string process1, string speed1)
+        {
+            assign = (int)assign1;
+            add = (int)add1;
+            start = (int)start1;
+            delay = Convert.ToInt32(delay1);
+            click = Convert.ToInt32(click1);
+            process = Convert.ToInt32(process1);
+            speed = Convert.ToInt32(speed1);
+            Config_Write();
         }
     }
 }

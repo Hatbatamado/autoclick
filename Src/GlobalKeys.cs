@@ -22,5 +22,12 @@ namespace click
             start_glob.Register();
             add_glob.Register();
         }
+
+        static public void Stop_Detect()
+        {
+            assign_glob.Unregister();
+            start_glob.Unregister();
+            add_glob.Unregister();
+        }
     }
 }

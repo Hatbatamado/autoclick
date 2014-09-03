@@ -18,17 +18,16 @@ namespace click
         [DllImport("user32.dll")]
         static extern bool GetWindowRect
             (IntPtr hwnd, out Rectangle rect);
-        //--------------
 
-        //TODO: simplify this code and add missing buttons
         public Options()
         {
             InitializeComponent();
-            Design();
+            Options_Design();
         }
 
         Button assign, add, start;
-        private void Design()
+        TextBox d, c, p, s;
+        private void Options_Design()
         {
             //TODO: simplify/change this code for the default button
             //maybe move these to Design.cs
@@ -57,6 +56,7 @@ namespace click
             assign.Location = new Point(100, 47);
             assign.Text = ((Keys)Enum.Parse(typeof(Keys),
                 Config.Config_settings("assign").ToString())).ToString();
+            assign.Name = "assign";
             assign.Size = new Size(114, 22);
             assign.Click += assign_Click;
             //---
@@ -65,6 +65,7 @@ namespace click
             add.Location = new Point(100, 72);
             add.Text = ((Keys)Enum.Parse(typeof(Keys),
                 Config.Config_settings("add").ToString())).ToString();
+            add.Name = "add";
             add.Size = new Size(114, 22);
             add.Click += add_Click;
             //---
@@ -73,6 +74,7 @@ namespace click
             start.Location = new Point(100, 97);
             start.Text = ((Keys)Enum.Parse(typeof(Keys),
                 Config.Config_settings("start").ToString())).ToString();
+            start.Name = "start";
             start.Size = new Size(114, 22);
             start.Click += start_Click;
             //---
@@ -98,13 +100,13 @@ namespace click
             cancel.Click += cancel_Click;
             //--------------
             //Textboxes
-            TextBox d = Designn(new Point(100, 122), new Size(114, 22),
+            d = Designn(new Point(100, 122), new Size(114, 22),
                 Config.Config_settings("delay").ToString());
-            TextBox c = Designn(new Point(100, 147), new Size(114, 22),
+            c = Designn(new Point(100, 147), new Size(114, 22),
                 Config.Config_settings("click").ToString());
-            TextBox p = Designn(new Point(100, 172), new Size(114, 22),
+            p = Designn(new Point(100, 172), new Size(114, 22),
                 Config.Config_settings("process").ToString());
-            TextBox s = Designn(new Point(100, 197), new Size(114, 22),
+            s = Designn(new Point(100, 197), new Size(114, 22),
                 Config.Config_settings("speed").ToString());
         }
 
@@ -137,13 +139,34 @@ namespace click
                 this.Close();
             else
             {
-                //SAVE
+                Save();
             }
         }
 
         void save_Click(object sender, EventArgs e)
         {
-            
+            Save();
+        }
+
+        private void Save()
+        {
+            if (assign.Text == add.Text || assign.Text == start.Text ||
+                add.Text == start.Text)
+            {
+                FindAndMoveMsgBox(Screen.GetWorkingArea(this).Width - 575, 225,
+                    true, "Warning");
+                MessageBox.Show("Atleast 2 buttons set for the same, please change it",
+                    "Warning", MessageBoxButtons.OK);
+            }
+            else
+            {
+                Config.Config_Change((Keys)Enum.Parse(typeof(Keys), assign.Text, true),
+                    (Keys)Enum.Parse(typeof(Keys), add.Text, true),
+                    (Keys)Enum.Parse(typeof(Keys), start.Text, true),
+                    d.Text, c.Text, p.Text, s.Text);
+                Design.Design_Refresh();
+                this.Close();
+            }
         }
 
         void start_Click(object sender, EventArgs e)
@@ -223,7 +246,7 @@ namespace click
         {
             Config.Default();
             this.Controls.Clear(); //TODO: only clear the changeable parts
-            Design();
+            Options_Design();
         }
 
         //TODO: merge these with Design.cs ones
@@ -248,6 +271,11 @@ namespace click
                 txt.Text = Text;
 
             return txt;
+        }
+
+        private void Options_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GlobalKeys.Detect();
         }
     }
 }
