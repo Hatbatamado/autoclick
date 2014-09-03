@@ -101,98 +101,98 @@ namespace click
                 //Buttons:
                 //
                 Button assign = new Button();
-                assign = Designn("Assign", new Point(140, 30), 1, new Size(0, 0));
+                assign = Designn(form, "Assign", new Point(140, 30), 1, new Size(0, 0));
                 assign.Click += assign_Click;
                 //---------------------------------------------------
                 Button add = new Button();
-                add = Designn("Add", new Point(140, 120), 0, new Size(0, 0));
+                add = Designn(form, "Add", new Point(140, 120), 0, new Size(0, 0));
                 add.Click += add_Click;
                 //---------------------------------------------------
                 Button start = new Button();
-                start = Designn("Start", new Point(275, 120), 2, new Size(0, 0));
+                start = Designn(form, "Start", new Point(275, 120), 2, new Size(0, 0));
                 start.BackColor = Color.LightGreen;
                 start.Name = "Start";
                 start.Enabled = false;
                 start.Click += start_Click;
                 //---------------------------------------------------
                 Button del_l = new Button();
-                del_l = Designn("Delete", new Point(180, 390), -1, new Size(50, 22));
+                del_l = Designn(form, "Delete", new Point(180, 390), -1, new Size(50, 22));
                 del_l.Click += del_l_Click;
                 //---------------------------------------------------
                 speed_up = new Button();
-                speed_up = Designn("U", new Point(180, 415), -1, new Size(20, 22));
+                speed_up = Designn(form, "U", new Point(180, 415), -1, new Size(20, 22));
                 speed_up.BackColor = Color.LightSkyBlue;
                 speed_up.Click += speed_up_Click;
                 //---------------------------------------------------
                 speed_down = new Button();
-                speed_down = Designn("D", new Point(200, 415), -1, new Size(20, 22));
+                speed_down = Designn(form, "D", new Point(200, 415), -1, new Size(20, 22));
                 speed_down.BackColor = Color.Red;
                 speed_down.Click += speed_down_Click;
                 //---------------------------------------------------
                 Button save = new Button();
-                save = Designn("Save", new Point(315, 390), -1, new Size(50, 22));
+                save = Designn(form, "Save", new Point(315, 390), -1, new Size(50, 22));
                 save.Click += save_Click;
                 //---------------------------------------------------
                 Button load = new Button();
-                load = Designn("Load", new Point(315, 420), -1, new Size(50, 22));
+                load = Designn(form, "Load", new Point(315, 420), -1, new Size(50, 22));
                 load.Click += load_Click;
                 //---------------------------------------------------
                 Button help = new Button();
-                help = Designn("Help", new Point(315, 450), -1, new Size(50, 22));
+                help = Designn(form, "Help", new Point(315, 450), -1, new Size(50, 22));
                 help.BackColor = Color.LightBlue;
                 help.Click += help_Click;
                 //---------------------------------------------------
                 swap = new Button();
-                swap = Designn("Swap", new Point(180, 440), -1, new Size(50, 22));
+                swap = Designn(form, "Swap", new Point(180, 440), -1, new Size(50, 22));
                 swap.Click += swap_Click;
                 //---------------------------------------------------
                 //
                 //Textboxes:
                 //
-                x = Designn(new Point(30, 32), new Size(0, 0), "");
+                x = Designn(form, new Point(30, 32), new Size(0, 0), "");
                 //---------------------------------------------------
-                y = Designn(new Point(30, 62), new Size(0, 0), "");
+                y = Designn(form, new Point(30, 62), new Size(0, 0), "");
                 //---------------------------------------------------
-                delay = Designn(new Point(45, 92), new Size(85, 22),
+                delay = Designn(form, new Point(45, 92), new Size(85, 22),
                     Config.Config_settings("delay").ToString());
                 //---------------------------------------------------
-                repeat = Designn(new Point(45, 122), new Size(85, 22),
+                repeat = Designn(form, new Point(45, 122), new Size(85, 22),
                     Config.Config_settings("click").ToString());
                 //---------------------------------------------------
-                glob_repeat = Designn(new Point(350, 62), new Size(50, 22),
+                glob_repeat = Designn(form, new Point(350, 62), new Size(50, 22),
                     Config.Config_settings("process").ToString());
                 //---------------------------------------------------
-                del_lane = Designn(new Point(140, 392), new Size(35, 22), "");
+                del_lane = Designn(form, new Point(140, 392), new Size(35, 22), "");
                 //---------------------------------------------------
-                speed = Designn(new Point(140, 417), new Size(35, 22),
+                speed = Designn(form, new Point(140, 417), new Size(35, 22),
                     Config.Config_settings("speed").ToString());
                 //---------------------------------------------------
-                swap_b = Designn(new Point(140, 442), new Size(35, 22), "");
+                swap_b = Designn(form, new Point(140, 442), new Size(35, 22), "");
                 //---------------------------------------------------
-                swap_a = Designn(new Point(100, 442), new Size(35, 22), "");
+                swap_a = Designn(form, new Point(100, 442), new Size(35, 22), "");
                 //---------------------------------------------------
                 //
                 //Lablels:
                 //
-                Designn("X:", new Point(10, 35), new Size(0, 0));
+                Designn(form, "X:", new Point(10, 35), new Size(0, 0));
                 //---------------------------------------------------
-                Designn("Y:", new Point(10, 65), new Size(0, 0));
+                Designn(form, "Y:", new Point(10, 65), new Size(0, 0));
                 //---------------------------------------------------
-                Designn("delay:", new Point(10, 95), new Size(36, 22));
+                Designn(form, "delay:", new Point(10, 95), new Size(36, 22));
                 //---------------------------------------------------
-                Designn("click:", new Point(10, 125), new Size(45, 22));
+                Designn(form, "click:", new Point(10, 125), new Size(45, 22));
                 //---------------------------------------------------
-                Designn("Coordinates:", new Point(95, 164), new Size(75, 16));
+                Designn(form, "Coordinates:", new Point(95, 164), new Size(75, 16));
                 //---------------------------------------------------
-                Designn("delay (ms):", new Point(185, 164), new Size(60, 16));
+                Designn(form, "delay (ms):", new Point(185, 164), new Size(60, 16));
                 //---------------------------------------------------
-                Designn("click:", new Point(285, 164), new Size(42, 16));
+                Designn(form, "click:", new Point(285, 164), new Size(42, 16));
                 //---------------------------------------------------
-                Designn("Full process run:", new Point(260, 65), new Size(110, 22));
+                Designn(form, "Full process run:", new Point(260, 65), new Size(110, 22));
                 //---------------------------------------------------
-                Designn("No.:", new Point(47, 164), new Size(28, 16));
+                Designn(form, "No.:", new Point(47, 164), new Size(28, 16));
                 //---------------------------------------------------
-                Designn("Delete No.:", new Point(75, 395), new Size(62, 22));
+                Designn(form, "Delete No.:", new Point(75, 395), new Size(62, 22));
                 //---------------------------------------------------
                 //
                 //RichTextBox:
@@ -286,10 +286,10 @@ namespace click
         #endregion
 
         #region Design functions
-        static private Button Designn(string Text, Point Location, int Tabindex, Size Size)
+        static public Button Designn(Form form, string Text, Point Location, int Tabindex, Size Size)
         {
             Button button = new Button();
-            mainform.Controls.Add(button);
+            form.Controls.Add(button);
             button.Text = Text;
             button.Location = Location;
             if (Tabindex != -1)
@@ -300,10 +300,10 @@ namespace click
             return button;
         }
 
-        static private TextBox Designn(Point Location, Size Size, string Text)
+        static public TextBox Designn(Form form, Point Location, Size Size, string Text)
         {
             TextBox txt = new TextBox();
-            mainform.Controls.Add(txt);
+            form.Controls.Add(txt);
             txt.Location = Location;
             if (Size != new Size(0, 0))
                 txt.Size = Size;
@@ -313,10 +313,10 @@ namespace click
             return txt;
         }
 
-        static private void Designn(string Text, Point Location, Size Size)
+        static public void Designn(Form form, string Text, Point Location, Size Size)
         {
             Label label = new Label();
-            mainform.Controls.Add(label);
+            form.Controls.Add(label);
             label.Text = Text;
             label.Location = Location;
             if (Size != new Size(0, 0))

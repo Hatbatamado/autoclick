@@ -42,71 +42,56 @@ namespace click
             this.Controls.Add(options);
             //--------------
             //Labels
-            Designn("Assign:", new Point(50, 50), new Size(50, 22));
-            Designn("Add:", new Point(50, 75), new Size(50, 22));
-            Designn("Start:", new Point(50, 100), new Size(50, 22));
-            Designn("Delay:", new Point(50, 125), new Size(50, 22));
-            Designn("Repeat:", new Point(50, 150), new Size(50, 22));
-            Designn("Process:", new Point(50, 175), new Size(50, 22));
-            Designn("Speed:", new Point(50, 200), new Size(50, 22));
+            Design.Designn(this, "Assign:", new Point(50, 50), new Size(50, 22));
+            Design.Designn(this, "Add:", new Point(50, 75), new Size(50, 22));
+            Design.Designn(this, "Start:", new Point(50, 100), new Size(50, 22));
+            Design.Designn(this, "Delay:", new Point(50, 125), new Size(50, 22));
+            Design.Designn(this, "Repeat:", new Point(50, 150), new Size(50, 22));
+            Design.Designn(this, "Process:", new Point(50, 175), new Size(50, 22));
+            Design.Designn(this, "Speed:", new Point(50, 200), new Size(50, 22));
             //--------------
             //Buttons
             assign = new Button();
-            this.Controls.Add(assign);
-            assign.Location = new Point(100, 47);
-            assign.Text = ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("assign").ToString())).ToString();
-            assign.Name = "assign";
-            assign.Size = new Size(114, 22);
+            assign = Design.Designn(this, ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("assign").ToString())).ToString(),
+                new Point(100, 47), -1, new Size(114, 22));
             assign.Click += assign_Click;
-            //---
+            //--------------
             add = new Button();
-            this.Controls.Add(add);
-            add.Location = new Point(100, 72);
-            add.Text = ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("add").ToString())).ToString();
-            add.Name = "add";
-            add.Size = new Size(114, 22);
+            add = Design.Designn(this, ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("add").ToString())).ToString(),
+                new Point(100, 72), -1, new Size(114, 22));
             add.Click += add_Click;
-            //---
+            //--------------
             start = new Button();
-            this.Controls.Add(start);
-            start.Location = new Point(100, 97);
-            start.Text = ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("start").ToString())).ToString();
-            start.Name = "start";
-            start.Size = new Size(114, 22);
+            start = Design.Designn(this, ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("start").ToString())).ToString(),
+                new Point(100, 97), -1, new Size(114, 22));
             start.Click += start_Click;
             //---
             Button defaul = new Button();
-            this.Controls.Add(defaul);
-            defaul.Location = new Point(40, 225);
-            defaul.Text = "Default";
-            defaul.Size = new Size(60, 22);
+            defaul = Design.Designn(this, "Default", new Point(40, 225),
+                -1, new Size(60, 22));
             defaul.Click += defaul_Click;
             //---
             Button save = new Button();
-            this.Controls.Add(save);
-            save.Location = new Point(110, 225);
-            save.Text = "Save";
-            save.Size = new Size(60, 22);
+            save = Design.Designn(this, "Save", new Point(110, 225),
+                -1, new Size(60, 22));
             save.Click += save_Click;
             //---
             Button cancel = new Button();
-            this.Controls.Add(cancel);
-            cancel.Location = new Point(180, 225);
-            cancel.Text = "Cancel";
-            cancel.Size = new Size(60, 22);
+            cancel = Design.Designn(this, "Cancel", new Point(180, 225),
+                -1, new Size(60, 22));
             cancel.Click += cancel_Click;
             //--------------
             //Textboxes
-            d = Designn(new Point(100, 122), new Size(114, 22),
+            d = Design.Designn(this, new Point(100, 122), new Size(114, 22),
                 Config.Config_settings("delay").ToString());
-            c = Designn(new Point(100, 147), new Size(114, 22),
+            c = Design.Designn(this, new Point(100, 147), new Size(114, 22),
                 Config.Config_settings("click").ToString());
-            p = Designn(new Point(100, 172), new Size(114, 22),
+            p = Design.Designn(this, new Point(100, 172), new Size(114, 22),
                 Config.Config_settings("process").ToString());
-            s = Designn(new Point(100, 197), new Size(114, 22),
+            s = Design.Designn(this, new Point(100, 197), new Size(114, 22),
                 Config.Config_settings("speed").ToString());
         }
 
@@ -247,30 +232,6 @@ namespace click
             Config.Default();
             this.Controls.Clear(); //TODO: only clear the changeable parts
             Options_Design();
-        }
-
-        //TODO: merge these with Design.cs ones
-        private void Designn(string Text, Point Location, Size Size)
-        {
-            Label label = new Label();
-            this.Controls.Add(label);
-            label.Text = Text;
-            label.Location = Location;
-            if (Size != new Size(0, 0))
-                label.Size = Size;
-        }
-
-        private TextBox Designn(Point Location, Size Size, string Text)
-        {
-            TextBox txt = new TextBox();
-            this.Controls.Add(txt);
-            txt.Location = Location;
-            if (Size != new Size(0, 0))
-                txt.Size = Size;
-            if (Text != "")
-                txt.Text = Text;
-
-            return txt;
         }
 
         private void Options_FormClosing(object sender, FormClosingEventArgs e)
