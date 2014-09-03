@@ -29,8 +29,6 @@ namespace click
         TextBox d, c, p, s;
         private void Options_Design()
         {
-            //TODO: simplify/change this code for the default button
-            //maybe move these to Design.cs
             this.KeyDown += Options_KeyDown;
             Button defaul = new Button();
             Button save = new Button();
@@ -181,8 +179,7 @@ namespace click
         void defaul_Click(object sender, EventArgs e)
         {
             Config.Default();
-            this.Controls.Clear(); //TODO: only clear the changeable parts
-            Options_Design();
+            Design.Options_Default(assign, add, start, d, c, p, s);
         }
 
         private void Options_FormClosing(object sender, FormClosingEventArgs e)

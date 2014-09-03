@@ -512,5 +512,20 @@ namespace click
             s = Design.Designn(form, new Point(100, 197), new Size(114, 22),
                 Config.Config_settings("speed").ToString());
         }
+
+        static public void Options_Default(Button assign, Button add, Button start,
+            TextBox d, TextBox c, TextBox p, TextBox s)
+        {
+            assign.Text = ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("assign").ToString())).ToString();
+            add.Text = ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("add").ToString())).ToString();
+            start.Text = ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("start").ToString())).ToString();
+            d.Text = Config.Config_settings("delay").ToString();
+            c.Text = Config.Config_settings("click").ToString();
+            p.Text = Config.Config_settings("process").ToString();
+            s.Text = Config.Config_settings("speed").ToString();
+        }
     }
 }
