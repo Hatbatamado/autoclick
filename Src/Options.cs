@@ -87,21 +87,49 @@ namespace click
 
         void start_Click(object sender, EventArgs e)
         {
-            (sender as Button).Text = "push a button";
-            setbutton = 2;
+            if (!Button_Text(sender as Button))
+            {
+                (sender as Button).Text = "push a button";
+                setbutton = 2;
+            }
         }
 
         void add_Click(object sender, EventArgs e)
         {
-            (sender as Button).Text = "push a button";
-            setbutton = 1;
+            if (!Button_Text(sender as Button))
+            {
+                (sender as Button).Text = "push a button";
+                setbutton = 1;
+            }
         }
 
         int setbutton = -1;
         void assign_Click(object sender, EventArgs e)
         {
-            (sender as Button).Text = "push a button";
-            setbutton = 0;
+            if (!Button_Text(sender as Button))
+            {
+                (sender as Button).Text = "push a button";
+                setbutton = 0;
+            }
+        }
+
+        Button temp = new Button();
+        string b_text = "";
+        private bool Button_Text(Button button)
+        {            
+            if (setbutton == -1)
+            {
+                temp = button;
+                b_text = button.Text;
+                return false;
+            }
+            else
+            {
+                if (temp.Text == "push a button")
+                    temp.Text = b_text;
+                setbutton = -1;
+                return true;
+            }
         }
 
         void Options_KeyDown(object sender, KeyEventArgs e)
