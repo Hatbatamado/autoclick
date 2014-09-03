@@ -65,7 +65,7 @@ namespace click
         {
             if (what == 0)
             {
-                #region design
+                #region Main design
                 //
                 //Form:
                 //
@@ -221,17 +221,6 @@ namespace click
             speed.Text = Config.Config_settings("speed").ToString();
         }
 
-        static void exit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        static void options_Click(object sender, EventArgs e)
-        {
-            Options options = new Options();
-            GlobalKeys.Stop_Detect();
-            options.Show();
-        }
 
         #region Button clicks
         static void add_Click(object sender, EventArgs e)
@@ -283,9 +272,21 @@ namespace click
         {
             Swap();
         }
+
+        static void exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        static void options_Click(object sender, EventArgs e)
+        {
+            Options options = new Options();
+            GlobalKeys.Stop_Detect();
+            options.Show();
+        }
         #endregion
 
-        #region Design functions
+        #region Designn functions
         static public Button Designn(Form form, string Text, Point Location, int Tabindex, Size Size)
         {
             Button button = new Button();
@@ -451,6 +452,65 @@ namespace click
                 swap_a.Visible = true;
                 swap_b.Visible = true;
             }
+        }
+
+        static public void Opt_Design(Form form, ref Button assign, ref Button add,
+            ref Button start, ref TextBox d, ref TextBox c, ref TextBox p, ref TextBox s,
+            ref Button save, ref Button cancel, ref Button defaul)
+        {
+            form.Location = new Point(Screen.GetWorkingArea(form).Width - 550, 150);
+            form.KeyPreview = true;
+            
+            //--------------
+            Label options = new Label();
+            options.Font = new Font("Arial", 12, FontStyle.Bold);
+            options.Text = "Options";
+            options.Location = new Point(110, 10);
+            form.Controls.Add(options);
+            //--------------
+            //Labels
+            Design.Designn(form, "Assign:", new Point(50, 50), new Size(50, 22));
+            Design.Designn(form, "Add:", new Point(50, 75), new Size(50, 22));
+            Design.Designn(form, "Start:", new Point(50, 100), new Size(50, 22));
+            Design.Designn(form, "Delay:", new Point(50, 125), new Size(50, 22));
+            Design.Designn(form, "Repeat:", new Point(50, 150), new Size(50, 22));
+            Design.Designn(form, "Process:", new Point(50, 175), new Size(50, 22));
+            Design.Designn(form, "Speed:", new Point(50, 200), new Size(50, 22));
+            //--------------
+            //Buttons
+            assign = new Button();
+            assign = Design.Designn(form, ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("assign").ToString())).ToString(),
+                new Point(100, 47), -1, new Size(114, 22));            
+            //--------------
+            add = new Button();
+            add = Design.Designn(form, ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("add").ToString())).ToString(),
+                new Point(100, 72), -1, new Size(114, 22));            
+            //--------------
+            start = new Button();
+            start = Design.Designn(form, ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("start").ToString())).ToString(),
+                new Point(100, 97), -1, new Size(114, 22));            
+            //---
+            defaul = Design.Designn(form, "Default", new Point(40, 225),
+                -1, new Size(60, 22));            
+            //---
+            save = Design.Designn(form, "Save", new Point(110, 225),
+                -1, new Size(60, 22));            
+            //---
+            cancel = Design.Designn(form, "Cancel", new Point(180, 225),
+                -1, new Size(60, 22));
+            //--------------
+            //Textboxes
+            d = Design.Designn(form, new Point(100, 122), new Size(114, 22),
+                Config.Config_settings("delay").ToString());
+            c = Design.Designn(form, new Point(100, 147), new Size(114, 22),
+                Config.Config_settings("click").ToString());
+            p = Design.Designn(form, new Point(100, 172), new Size(114, 22),
+                Config.Config_settings("process").ToString());
+            s = Design.Designn(form, new Point(100, 197), new Size(114, 22),
+                Config.Config_settings("speed").ToString());
         }
     }
 }

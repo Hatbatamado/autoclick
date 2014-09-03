@@ -31,68 +31,19 @@ namespace click
         {
             //TODO: simplify/change this code for the default button
             //maybe move these to Design.cs
-            this.Location = new Point(Screen.GetWorkingArea(this).Width - 550, 150);
-            this.KeyPreview = true;
             this.KeyDown += Options_KeyDown;
-            //--------------
-            Label options = new Label();
-            options.Font = new Font("Arial", 12, FontStyle.Bold);
-            options.Text = "Options";
-            options.Location = new Point(110, 10);
-            this.Controls.Add(options);
-            //--------------
-            //Labels
-            Design.Designn(this, "Assign:", new Point(50, 50), new Size(50, 22));
-            Design.Designn(this, "Add:", new Point(50, 75), new Size(50, 22));
-            Design.Designn(this, "Start:", new Point(50, 100), new Size(50, 22));
-            Design.Designn(this, "Delay:", new Point(50, 125), new Size(50, 22));
-            Design.Designn(this, "Repeat:", new Point(50, 150), new Size(50, 22));
-            Design.Designn(this, "Process:", new Point(50, 175), new Size(50, 22));
-            Design.Designn(this, "Speed:", new Point(50, 200), new Size(50, 22));
-            //--------------
-            //Buttons
-            assign = new Button();
-            assign = Design.Designn(this, ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("assign").ToString())).ToString(),
-                new Point(100, 47), -1, new Size(114, 22));
-            assign.Click += assign_Click;
-            //--------------
-            add = new Button();
-            add = Design.Designn(this, ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("add").ToString())).ToString(),
-                new Point(100, 72), -1, new Size(114, 22));
-            add.Click += add_Click;
-            //--------------
-            start = new Button();
-            start = Design.Designn(this, ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("start").ToString())).ToString(),
-                new Point(100, 97), -1, new Size(114, 22));
-            start.Click += start_Click;
-            //---
             Button defaul = new Button();
-            defaul = Design.Designn(this, "Default", new Point(40, 225),
-                -1, new Size(60, 22));
-            defaul.Click += defaul_Click;
-            //---
             Button save = new Button();
-            save = Design.Designn(this, "Save", new Point(110, 225),
-                -1, new Size(60, 22));
-            save.Click += save_Click;
-            //---
             Button cancel = new Button();
-            cancel = Design.Designn(this, "Cancel", new Point(180, 225),
-                -1, new Size(60, 22));
+            Design.Opt_Design(this, ref assign, ref add, ref start, ref d,
+                ref c, ref p, ref s, ref save, ref cancel, ref defaul);
+
+            assign.Click += assign_Click;
+            add.Click += add_Click;
+            start.Click += start_Click;
+            defaul.Click += defaul_Click;
+            save.Click += save_Click;
             cancel.Click += cancel_Click;
-            //--------------
-            //Textboxes
-            d = Design.Designn(this, new Point(100, 122), new Size(114, 22),
-                Config.Config_settings("delay").ToString());
-            c = Design.Designn(this, new Point(100, 147), new Size(114, 22),
-                Config.Config_settings("click").ToString());
-            p = Design.Designn(this, new Point(100, 172), new Size(114, 22),
-                Config.Config_settings("process").ToString());
-            s = Design.Designn(this, new Point(100, 197), new Size(114, 22),
-                Config.Config_settings("speed").ToString());
         }
 
         //Messagebox moving method:
