@@ -175,7 +175,6 @@ namespace click
             }
         }
 
-
         void defaul_Click(object sender, EventArgs e)
         {
             Config.Default();

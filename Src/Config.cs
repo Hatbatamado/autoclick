@@ -15,6 +15,7 @@ namespace click
         static int process;
         static int speed;
         const string conf = "config.conf";
+        //TODO: change this for xml instead of .conf
 
         static public int Config_settings(string what)
         {
