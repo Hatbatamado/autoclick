@@ -45,7 +45,7 @@ namespace click
         }
 
         //Messagebox moving method:
-        void FindAndMoveMsgBox(int x, int y, bool repaint, string title)
+        static public void FindAndMoveMsgBox(int x, int y, bool repaint, string title)
         {
             Thread thr = new Thread(() => // create a new thread
             {

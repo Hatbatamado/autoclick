@@ -83,6 +83,14 @@ namespace click
                 //---
                 ToolStripMenuItem file = new ToolStripMenuItem("File");
                 //---
+                ToolStripMenuItem save = new ToolStripMenuItem("Save");
+                save.ShortcutKeys = Keys.Control | Keys.S;
+                save.Click+=save_Click;
+                //---
+                ToolStripMenuItem load = new ToolStripMenuItem("Load");
+                load.ShortcutKeys = Keys.Control | Keys.L;
+                load.Click+=load_Click;
+                //---
                 ToolStripMenuItem options = new ToolStripMenuItem("Options");
                 options.ShortcutKeys = Keys.Control | Keys.O;
                 options.Click += options_Click;
@@ -91,10 +99,21 @@ namespace click
                 exit.ShortcutKeys = Keys.Alt | Keys.F4;
                 exit.Click += exit_Click;
                 //---
-                ToolStripMenuItem[] filemenu = { options, exit };
+                ToolStripMenuItem[] filemenu = { save, load, options, exit };
                 file.DropDownItems.AddRange(filemenu);
                 //---
                 mainmenu.Items.Add(file);
+                //---
+                ToolStripMenuItem help = new ToolStripMenuItem("Help");
+                //---
+                ToolStripMenuItem vhelp = new ToolStripMenuItem("View Help");
+                vhelp.ShortcutKeys = Keys.Control | Keys.F1;
+                vhelp.Click += help_Click;
+                //---
+                help.DropDownItems.Add(vhelp);
+                //---
+                mainmenu.Items.Add(help);
+                //---
                 form.Controls.Add(mainmenu);
                 //---------------------------------------------------
                 //
@@ -128,19 +147,6 @@ namespace click
                 speed_down = Designn(form, "D", new Point(200, 415), -1, new Size(20, 22));
                 speed_down.BackColor = Color.Red;
                 speed_down.Click += speed_down_Click;
-                //---------------------------------------------------
-                Button save = new Button();
-                save = Designn(form, "Save", new Point(315, 390), -1, new Size(50, 22));
-                save.Click += save_Click;
-                //---------------------------------------------------
-                Button load = new Button();
-                load = Designn(form, "Load", new Point(315, 420), -1, new Size(50, 22));
-                load.Click += load_Click;
-                //---------------------------------------------------
-                Button help = new Button();
-                help = Designn(form, "Help", new Point(315, 450), -1, new Size(50, 22));
-                help.BackColor = Color.LightBlue;
-                help.Click += help_Click;
                 //---------------------------------------------------
                 swap = new Button();
                 swap = Designn(form, "Swap", new Point(180, 440), -1, new Size(50, 22));

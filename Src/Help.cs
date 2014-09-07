@@ -10,17 +10,16 @@ namespace click
         static string help =
             "Auto-clicker help\n"
             + "Howto:\n"
-            + "1) Write the coordinates to the 'X' and 'Y' textbox or push the 'F6' key and it will detect automatically\n"
+            + "1) Write the coordinates to the 'X' and 'Y' textbox or push the 'Assign' key and it will detect automatically\n"
             + "2) Set a delay in ms, 1000 is the default value\n"
             + "3) Set an 'click' value, how much should the program click the same button\n"
-            + "4) Click on the 'Add' or push 'F8' key to add this to the clicking list\n"
+            + "4) Click on the 'Add' button or push it's short key to add this to the clicking list\n"
             + "5) repeat 1)-4) as much as you need\n"
             + "6) If you keep the 'Full process run' on 0 then it will keep clicking on the list items forever / until you make it stop\n"
             + "----But if you change it, then it will repeat only the times you wrote in it\n"
-            + "7) By clicking on 'Start' or pushing the 'F7' key will start the clicking and pushing/clicking again will stop it\n\n"
+            + "7) By clicking on 'Start' or pushing it's short key will start the clicking and pushing/clicking again will stop it\n\n"
             + "If you want to remove an clicking process from the list, then write it's No. next to the 'Delete' button and then click it\n"
             + "If you want to remove all items from the list then write * in the textbox and then click the button\n\n"
-            + "If you want to save or load the process you can do it, by clicking on the appropriate button\n\n"
             + "Status while running: Current: X/Y/Z\n"
             + "X: full process number\n"
             + "Y: clicking list number\n"
@@ -34,6 +33,7 @@ namespace click
 
         static public void Help_out()
         {
+            Options.FindAndMoveMsgBox(Screen.GetWorkingArea(Design.Mainform).Width - 550, 150, true, "Help");
             MessageBox.Show(help, "Help");
         }
     }
