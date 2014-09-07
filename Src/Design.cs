@@ -47,6 +47,7 @@ namespace click
         static private Button speed_up;
         static private Button speed_down;
         static private Button swap;
+        static private Button assign, add, start;
         static private List<Click> click = new List<Click>();
         internal static List<Click> Click
         {
@@ -119,16 +120,19 @@ namespace click
                 //
                 //Buttons:
                 //
-                Button assign = new Button();
-                assign = Designn(form, "Assign", new Point(140, 30), 1, new Size(0, 0));
+                assign = new Button();
+                assign = Designn(form, "Assign (" + Button_Names("assign") + ")",
+                    new Point(140, 30), 1, new Size(0, 0));
                 assign.Click += assign_Click;
                 //---------------------------------------------------
-                Button add = new Button();
-                add = Designn(form, "Add", new Point(140, 120), 0, new Size(0, 0));
+                add = new Button();
+                add = Designn(form, "Add (" + Button_Names("add") + ")",
+                    new Point(140, 120), 0, new Size(0, 0));
                 add.Click += add_Click;
                 //---------------------------------------------------
-                Button start = new Button();
-                start = Designn(form, "Start", new Point(275, 120), 2, new Size(0, 0));
+                start = new Button();
+                start = Designn(form, "Start (" + Button_Names("start") + ")",
+                    new Point(275, 120), 2, new Size(0, 0));
                 start.BackColor = Color.LightGreen;
                 start.Name = "Start";
                 start.Enabled = false;
@@ -139,17 +143,17 @@ namespace click
                 del_l.Click += del_l_Click;
                 //---------------------------------------------------
                 speed_up = new Button();
-                speed_up = Designn(form, "U", new Point(180, 415), -1, new Size(20, 22));
+                speed_up = Designn(form, "U", new Point(335, 390), -1, new Size(20, 22));
                 speed_up.BackColor = Color.LightSkyBlue;
                 speed_up.Click += speed_up_Click;
                 //---------------------------------------------------
                 speed_down = new Button();
-                speed_down = Designn(form, "D", new Point(200, 415), -1, new Size(20, 22));
+                speed_down = Designn(form, "D", new Point(360, 390), -1, new Size(20, 22));
                 speed_down.BackColor = Color.Red;
                 speed_down.Click += speed_down_Click;
                 //---------------------------------------------------
                 swap = new Button();
-                swap = Designn(form, "Swap", new Point(180, 440), -1, new Size(50, 22));
+                swap = Designn(form, "Swap", new Point(330, 415), -1, new Size(50, 22));
                 swap.Click += swap_Click;
                 //---------------------------------------------------
                 //
@@ -170,12 +174,12 @@ namespace click
                 //---------------------------------------------------
                 del_lane = Designn(form, new Point(140, 392), new Size(35, 22), "");
                 //---------------------------------------------------
-                speed = Designn(form, new Point(140, 417), new Size(35, 22),
+                speed = Designn(form, new Point(290, 392), new Size(35, 22),
                     Config.Config_settings("speed").ToString());
                 //---------------------------------------------------
-                swap_b = Designn(form, new Point(140, 442), new Size(35, 22), "");
+                swap_b = Designn(form, new Point(290, 417), new Size(35, 22), "");
                 //---------------------------------------------------
-                swap_a = Designn(form, new Point(100, 442), new Size(35, 22), "");
+                swap_a = Designn(form, new Point(250, 417), new Size(35, 22), "");
                 //---------------------------------------------------
                 //
                 //Lablels:
@@ -225,6 +229,9 @@ namespace click
             repeat.Text = Config.Config_settings("click").ToString();
             glob_repeat.Text = Config.Config_settings("process").ToString();
             speed.Text = Config.Config_settings("speed").ToString();
+            assign.Text = "Assign (" + Button_Names("assign") + ")";
+            add.Text = "Add (" + Button_Names("add") + ")";
+            start.Text = "Start (" + Button_Names("start") + ")";
         }
 
 
@@ -422,18 +429,12 @@ namespace click
                     else if (obj is Button && (obj as Button).Name == "Start")
                     {
                         //TODO: change this text
-                        (obj as Button).Text = "Stop";
+                        (obj as Button).Text = "Stop (" + Button_Names("start") + ")";
                         (obj as Button).BackColor = Color.Red;
                     }
                     else if (obj is TextBox)
                         (obj as TextBox).Enabled = false;
                 }
-                speed.Visible = false;
-                speed_down.Visible = false;
-                speed_up.Visible = false;
-                swap.Visible = false;
-                swap_a.Visible = false;
-                swap_b.Visible = false;
             }
             if (what == 2) // Stopped
             {
@@ -444,19 +445,13 @@ namespace click
                     else if (obj is Button && (obj as Button).Name == "Start")
                     {
                         //TODO: change this text
-                        (obj as Button).Text = "Start";
+                        (obj as Button).Text = "Start (" + Button_Names("start") + ")";
                         (obj as Button).Enabled = true;
                         (obj as Button).BackColor = Color.LightGreen;
                     }
                     else if (obj is TextBox)
                         (obj as TextBox).Enabled = true;
                 }
-                speed.Visible = true;
-                speed_down.Visible = true;
-                speed_up.Visible = true;
-                swap.Visible = true;
-                swap_a.Visible = true;
-                swap_b.Visible = true;
             }
         }
 
@@ -485,18 +480,15 @@ namespace click
             //--------------
             //Buttons
             assign = new Button();
-            assign = Designn(form, ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("assign").ToString())).ToString(),
+            assign = Designn(form, Button_Names("assign"),
                 new Point(100, 47), -1, new Size(114, 22));            
             //--------------
             add = new Button();
-            add = Designn(form, ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("add").ToString())).ToString(),
+            add = Designn(form, Button_Names("add"),
                 new Point(100, 72), -1, new Size(114, 22));            
             //--------------
             start = new Button();
-            start = Designn(form, ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("start").ToString())).ToString(),
+            start = Designn(form, Button_Names("start"),
                 new Point(100, 97), -1, new Size(114, 22));            
             //---
             defaul = Designn(form, "Default", new Point(40, 225),
@@ -522,16 +514,31 @@ namespace click
         static public void Options_Default(Button assign, Button add, Button start,
             TextBox d, TextBox c, TextBox p, TextBox s)
         {
-            assign.Text = ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("assign").ToString())).ToString();
-            add.Text = ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("add").ToString())).ToString();
-            start.Text = ((Keys)Enum.Parse(typeof(Keys),
-                Config.Config_settings("start").ToString())).ToString();
+            assign.Text = Button_Names("assign");
+            add.Text = Button_Names("add");
+            start.Text = Button_Names("start");
             d.Text = Config.Config_settings("delay").ToString();
             c.Text = Config.Config_settings("click").ToString();
             p.Text = Config.Config_settings("process").ToString();
             s.Text = Config.Config_settings("speed").ToString();
+        }
+
+        static private string Button_Names(string which)
+        {
+            switch (which)
+            {
+                case "assign":
+                    return ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("assign").ToString())).ToString();
+                case "add":
+                    return ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("add").ToString())).ToString();
+                case "start":
+                    return ((Keys)Enum.Parse(typeof(Keys),
+                Config.Config_settings("start").ToString())).ToString();
+                default:
+                    return "";
+            }
         }
     }
 }
