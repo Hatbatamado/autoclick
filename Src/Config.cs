@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace click
 {
@@ -15,8 +16,8 @@ namespace click
         static int process;
         static int speed;
         static int oX, oY;
-        const string conf = "config.conf";
-        //TODO: change this for xml instead of .conf
+        const string conf = "config.xml";
+        //TODO: simplify codes here
 
         static public int Config_settings(string what)
         {
@@ -66,100 +67,107 @@ namespace click
             if (!File.Exists(conf))
                 File.Create(conf).Dispose();
             //---
-            StreamWriter sw = new StreamWriter(conf, false);
-            sw.WriteLine("Assign:" + assign);
-            sw.WriteLine("Add:" + add);
-            sw.WriteLine("Start:" + start);
-            sw.WriteLine("Delay:" + delay);
-            sw.WriteLine("Click:" + click);
-            sw.WriteLine("Process:" + process);
-            sw.WriteLine("Speed:" + speed);
-            sw.WriteLine("oX:" + oX);
-            sw.WriteLine("oY:" + oY);
-            sw.Close();
+            XmlWriter xw = XmlWriter.Create(conf);
+
+            xw.WriteStartDocument();
+            xw.WriteStartElement("Settings");
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", assign.ToString());
+            xw.WriteString("Assign");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", assign.ToString());
+            xw.WriteString("Add");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", start.ToString());
+            xw.WriteString("Start");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", delay.ToString());
+            xw.WriteString("Delay");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", click.ToString());
+            xw.WriteString("Cick");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", process.ToString());
+            xw.WriteString("Process");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", speed.ToString());
+            xw.WriteString("Speed");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", oX.ToString());
+            xw.WriteString("oX");
+            xw.WriteEndElement();
+
+            xw.WriteStartElement("setting");
+            xw.WriteStartAttribute("value", oY.ToString());
+            xw.WriteString("oY");
+            xw.WriteEndElement();
+
+            xw.WriteEndDocument();
+            xw.Close();
         }
 
         static private void Config_Read()
         {
-            string line;
             if (!File.Exists(conf))
                 Default();
             else
             {
-                StreamReader sr = new StreamReader(conf);
-                for (int i = 0; i < 9; i++)
+                XmlReader xmlReader = XmlReader.Create(conf);
+                while (xmlReader.Read())
                 {
-                    line = sr.ReadLine();
-                    line = line.Substring(line.IndexOf(':') + 1);
-                    try
+                    if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "setting"))
                     {
-                        switch(i)
+                        if (xmlReader.HasAttributes)
                         {
-                            case 0:
-                                assign = Convert.ToInt32(line);
-                                break;
-                            case 1:
-                                add = Convert.ToInt32(line);
-                                break;
-                            case 2:
-                                start = Convert.ToInt32(line);
-                                break;
-                            case 3:
-                                delay = Convert.ToInt32(line);
-                                break;
-                            case 4:
-                                click = Convert.ToInt32(line);
-                                break;
-                            case 5:
-                                process = Convert.ToInt32(line);
-                                break;
-                            case 6:
-                                speed = Convert.ToInt32(line);
-                                break;
-                            case 7:
-                                oX = Convert.ToInt32(line);
-                                break;
-                            case 8:
-                                oY = Convert.ToInt32(line);
-                                break;
-                        }
-                        
-                    }
-                    catch (FormatException)
-                    {
-                        switch(i)
-                        {
-                            case 0:
-                                assign = (int)Keys.F6;
-                                break;
-                            case 1:
-                                add = (int)Keys.F8;
-                                break;
-                            case 2:
-                                start = (int)Keys.F7;
-                                break;
-                            case 3:
-                                delay = 1000;
-                                break;
-                            case 4:
-                                click = 1;
-                                break;
-                            case 5:
-                                process = 0;
-                                break;
-                            case 6:
-                                speed = 100;
-                                break;   
-                            case 7:
-                                oX = Screen.PrimaryScreen.WorkingArea.Width - 550;
-                                break;
-                            case 8:
-                                oY = 150;
-                                break;
+                            switch (xmlReader.ReadInnerXml())
+                            {
+                                case "Assign":
+                                    assign = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "Add":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "Start":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "Delay":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "Click":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "Process":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "Speed":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "oX":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                                case "oY":
+                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
+                                    break;
+                            }
                         }
                     }
                 }
-                sr.Close();
+                xmlReader.Close();
             }
         }
 
