@@ -33,7 +33,7 @@ namespace click
 
         static public void Help_out()
         {
-            Options.FindAndMoveMsgBox(Screen.GetWorkingArea(Design.Mainform).Width - 550, 150, true, "Help");
+            Options.FindAndMoveMsgBox(Config.Config_settings("oX"), Config.Config_settings("oY"), true, "Help");
             MessageBox.Show(help, "Help");
         }
     }

@@ -26,7 +26,7 @@ namespace click
         }
 
         Button assign, add, start;
-        TextBox d, c, p, s;
+        TextBox d, c, p, s, oX, oY;
         private void Options_Design()
         {
             this.KeyDown += Options_KeyDown;
@@ -34,7 +34,7 @@ namespace click
             Button save = new Button();
             Button cancel = new Button();
             Design.Opt_Design(this, ref assign, ref add, ref start, ref d,
-                ref c, ref p, ref s, ref save, ref cancel, ref defaul);
+                ref c, ref p, ref s, ref save, ref cancel, ref defaul, ref oX, ref oY);
 
             assign.Click += assign_Click;
             add.Click += add_Click;
@@ -97,7 +97,7 @@ namespace click
                 Config.Config_Change((Keys)Enum.Parse(typeof(Keys), assign.Text, true),
                     (Keys)Enum.Parse(typeof(Keys), add.Text, true),
                     (Keys)Enum.Parse(typeof(Keys), start.Text, true),
-                    d.Text, c.Text, p.Text, s.Text);
+                    d.Text, c.Text, p.Text, s.Text, oX.Text, oY.Text);
                 Design.Design_Refresh();
                 this.Close();
             }
@@ -178,7 +178,7 @@ namespace click
         void defaul_Click(object sender, EventArgs e)
         {
             Config.Default();
-            Design.Options_Default(assign, add, start, d, c, p, s);
+            Design.Options_Default(assign, add, start, d, c, p, s, oX, oY);
         }
 
         private void Options_FormClosing(object sender, FormClosingEventArgs e)

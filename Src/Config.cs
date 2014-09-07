@@ -14,6 +14,7 @@ namespace click
         static int click;
         static int process;
         static int speed;
+        static int oX, oY;
         const string conf = "config.conf";
         //TODO: change this for xml instead of .conf
 
@@ -36,6 +37,10 @@ namespace click
                     return process;
                 case "speed":
                     return speed;
+                case "oX":
+                    return oX;
+                case "oY":
+                    return oY;
                 default:
                     return -1;
             }
@@ -51,6 +56,8 @@ namespace click
             click = 1;
             process = 0;
             speed = 100;
+            oX = oX = Screen.PrimaryScreen.WorkingArea.Width - 550;
+            oY = 150;
             Config_Write();
         }
 
@@ -67,6 +74,8 @@ namespace click
             sw.WriteLine("Click:" + click);
             sw.WriteLine("Process:" + process);
             sw.WriteLine("Speed:" + speed);
+            sw.WriteLine("oX:" + oX);
+            sw.WriteLine("oY:" + oY);
             sw.Close();
         }
 
@@ -78,7 +87,7 @@ namespace click
             else
             {
                 StreamReader sr = new StreamReader(conf);
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     line = sr.ReadLine();
                     line = line.Substring(line.IndexOf(':') + 1);
@@ -107,6 +116,12 @@ namespace click
                             case 6:
                                 speed = Convert.ToInt32(line);
                                 break;
+                            case 7:
+                                oX = Convert.ToInt32(line);
+                                break;
+                            case 8:
+                                oY = Convert.ToInt32(line);
+                                break;
                         }
                         
                     }
@@ -134,7 +149,13 @@ namespace click
                                 break;
                             case 6:
                                 speed = 100;
-                                break;                                
+                                break;   
+                            case 7:
+                                oX = Screen.PrimaryScreen.WorkingArea.Width - 550;
+                                break;
+                            case 8:
+                                oY = 150;
+                                break;
                         }
                     }
                 }
@@ -143,7 +164,7 @@ namespace click
         }
 
         static public void Config_Change(Keys assign1, Keys add1, Keys start1,
-            string delay1, string click1, string process1, string speed1)
+            string delay1, string click1, string process1, string speed1, string oX1, string oY1)
         {
             assign = (int)assign1;
             add = (int)add1;
@@ -152,6 +173,8 @@ namespace click
             click = Convert.ToInt32(click1);
             process = Convert.ToInt32(process1);
             speed = Convert.ToInt32(speed1);
+            oX = Convert.ToInt32(oX1);
+            oY = Convert.ToInt32(oY1);
             Config_Write();
         }
     }

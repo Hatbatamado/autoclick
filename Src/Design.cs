@@ -74,7 +74,8 @@ namespace click
                 form.KeyPreview = true; //MUST HAVE for the buttons
                 form.Text = "Auto-clicker by Nakia";
                 //---------------------------------------------------
-                form.Location = new Point(Screen.GetWorkingArea(form).Width - 550, 150);
+                form.StartPosition = FormStartPosition.Manual;
+                form.Location = new Point(Config.Config_settings("oX"), Config.Config_settings("oY"));
                 form.Size = new Size(450, 525);
                 //---------------------------------------------------
                 //
@@ -232,6 +233,8 @@ namespace click
             assign.Text = "Assign (" + Button_Names("assign") + ")";
             add.Text = "Add (" + Button_Names("add") + ")";
             start.Text = "Start (" + Button_Names("start") + ")";
+            mainform.Location = new Point(Config.Config_settings("oX"),
+                Config.Config_settings("oY"));
         }
 
 
@@ -457,9 +460,11 @@ namespace click
 
         static public void Opt_Design(Form form, ref Button assign, ref Button add,
             ref Button start, ref TextBox d, ref TextBox c, ref TextBox p, ref TextBox s,
-            ref Button save, ref Button cancel, ref Button defaul)
+            ref Button save, ref Button cancel, ref Button defaul, ref TextBox oX, ref TextBox oY)
         {
-            form.Location = new Point(Screen.GetWorkingArea(form).Width - 550, 150);
+            form.StartPosition = FormStartPosition.Manual;
+            form.Location = new Point(Config.Config_settings("oX"), Config.Config_settings("oY"));
+            form.Size = new Size(300, 335);
             form.KeyPreview = true;
             
             //--------------
@@ -477,6 +482,7 @@ namespace click
             Designn(form, "Repeat:", new Point(50, 150), new Size(50, 22));
             Designn(form, "Process:", new Point(50, 175), new Size(50, 22));
             Designn(form, "Speed:", new Point(50, 200), new Size(50, 22));
+            Designn(form, "Window location:", new Point(5, 225), new Size(90, 22));
             //--------------
             //Buttons
             assign = new Button();
@@ -491,13 +497,13 @@ namespace click
             start = Designn(form, Button_Names("start"),
                 new Point(100, 97), -1, new Size(114, 22));            
             //---
-            defaul = Designn(form, "Default", new Point(40, 225),
+            defaul = Designn(form, "Default", new Point(40, 250),
                 -1, new Size(60, 22));            
             //---
-            save = Designn(form, "Save", new Point(110, 225),
+            save = Designn(form, "Save", new Point(110, 250),
                 -1, new Size(60, 22));            
             //---
-            cancel = Designn(form, "Cancel", new Point(180, 225),
+            cancel = Designn(form, "Cancel", new Point(180, 250),
                 -1, new Size(60, 22));
             //--------------
             //Textboxes
@@ -509,10 +515,14 @@ namespace click
                 Config.Config_settings("process").ToString());
             s = Designn(form, new Point(100, 197), new Size(114, 22),
                 Config.Config_settings("speed").ToString());
+            oX = Designn(form, new Point(100, 222), new Size(50, 22),
+                Config.Config_settings("oX").ToString());
+            oY = Designn(form, new Point(160, 222), new Size(50, 22),
+                Config.Config_settings("oY").ToString());
         }
 
         static public void Options_Default(Button assign, Button add, Button start,
-            TextBox d, TextBox c, TextBox p, TextBox s)
+            TextBox d, TextBox c, TextBox p, TextBox s, TextBox oX, TextBox oY)
         {
             assign.Text = Button_Names("assign");
             add.Text = Button_Names("add");
@@ -521,6 +531,8 @@ namespace click
             c.Text = Config.Config_settings("click").ToString();
             p.Text = Config.Config_settings("process").ToString();
             s.Text = Config.Config_settings("speed").ToString();
+            oX.Text = Config.Config_settings("oX").ToString();
+            oY.Text = Config.Config_settings("oY").ToString();
         }
 
         static private string Button_Names(string which)
