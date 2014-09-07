@@ -76,6 +76,8 @@ namespace click
                 //---------------------------------------------------
                 form.StartPosition = FormStartPosition.Manual;
                 form.Location = new Point(Config.Config_settings("oX"), Config.Config_settings("oY"));
+                form.FormBorderStyle = FormBorderStyle.FixedSingle;
+                form.MaximizeBox = false;
                 form.Size = new Size(450, 525);
                 //---------------------------------------------------
                 //
@@ -465,6 +467,8 @@ namespace click
             form.StartPosition = FormStartPosition.Manual;
             form.Location = new Point(Config.Config_settings("oX"), Config.Config_settings("oY"));
             form.Size = new Size(300, 335);
+            form.FormBorderStyle = FormBorderStyle.FixedSingle;
+            form.MaximizeBox = false;
             form.KeyPreview = true;
             
             //--------------
