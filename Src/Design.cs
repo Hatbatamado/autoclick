@@ -78,7 +78,7 @@ namespace click
                 form.Location = new Point(Config.Config_settings("oX"), Config.Config_settings("oY"));
                 form.FormBorderStyle = FormBorderStyle.FixedSingle;
                 form.MaximizeBox = false;
-                form.Size = new Size(450, 525);
+                form.Size = new Size(450, 505);
                 //---------------------------------------------------
                 //
                 //Menu:
