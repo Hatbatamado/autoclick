@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace click
 {
@@ -64,61 +65,48 @@ namespace click
 
         static private void Config_Write()
         {           
-            if (!File.Exists(conf))
-                File.Create(conf).Dispose();
-            //---
-            XmlWriter xw = XmlWriter.Create(conf);
+             XDocument doc = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement("Settings",
 
-            xw.WriteStartDocument();
-            xw.WriteStartElement("Settings");
+                    new XElement("Setting",
+                        new XElement("Name", "Assign"),
+                        new XElement("Value", assign)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", assign.ToString());
-            xw.WriteString("Assign");
-            xw.WriteEndElement();
+                    new XElement("Setting",
+                        new XElement("Name", "Add"),
+                        new XElement("Value", add)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", assign.ToString());
-            xw.WriteString("Add");
-            xw.WriteEndElement();
+                    new XElement("Setting",
+                        new XElement("Name", "Start"),
+                        new XElement("Value", start)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", start.ToString());
-            xw.WriteString("Start");
-            xw.WriteEndElement();
+                    new XElement("Setting",
+                        new XElement("Name", "Delay"),
+                        new XElement("Value", delay)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", delay.ToString());
-            xw.WriteString("Delay");
-            xw.WriteEndElement();
+                    new XElement("Setting",
+                        new XElement("Name", "Click"),
+                        new XElement("Value", click)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", click.ToString());
-            xw.WriteString("Cick");
-            xw.WriteEndElement();
+                        new XElement("Setting",
+                        new XElement("Name", "Process"),
+                        new XElement("Value", process)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", process.ToString());
-            xw.WriteString("Process");
-            xw.WriteEndElement();
+                    new XElement("Setting",
+                        new XElement("Name", "Speed"),
+                        new XElement("Value", speed)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", speed.ToString());
-            xw.WriteString("Speed");
-            xw.WriteEndElement();
+                    new XElement("Setting",
+                        new XElement("Name", "oX"),
+                        new XElement("Value", oX)),
 
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", oX.ToString());
-            xw.WriteString("oX");
-            xw.WriteEndElement();
-
-            xw.WriteStartElement("setting");
-            xw.WriteStartAttribute("value", oY.ToString());
-            xw.WriteString("oY");
-            xw.WriteEndElement();
-
-            xw.WriteEndDocument();
-            xw.Close();
+                    new XElement("Setting",
+                        new XElement("Name", "oY"),
+                        new XElement("Value", oY))
+                    )
+                );
+             doc.Save(conf);
         }
 
         static private void Config_Read()
@@ -127,47 +115,40 @@ namespace click
                 Default();
             else
             {
-                XmlReader xmlReader = XmlReader.Create(conf);
-                while (xmlReader.Read())
+                XDocument doc = XDocument.Load(conf);
+                foreach (XElement element in doc.Descendants("Setting"))
                 {
-                    if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "setting"))
+                    switch (element.Element("Name").Value)
                     {
-                        if (xmlReader.HasAttributes)
-                        {
-                            switch (xmlReader.ReadInnerXml())
-                            {
-                                case "Assign":
-                                    assign = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "Add":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "Start":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "Delay":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "Click":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "Process":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "Speed":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "oX":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                                case "oY":
-                                    add = Convert.ToInt32(xmlReader.GetAttribute("value"));
-                                    break;
-                            }
-                        }
+                        case "Assign":
+                            assign = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "Add":
+                            add = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "Start":
+                            start = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "Delay":
+                            delay = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "Click":
+                            click = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "Process":
+                            process = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "Speed":
+                            speed = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "oX":
+                            oX = Convert.ToInt32(element.Element("Value").Value);
+                            break;
+                        case "oY":
+                            oY = Convert.ToInt32(element.Element("Value").Value);
+                            break;
                     }
                 }
-                xmlReader.Close();
             }
         }
 
