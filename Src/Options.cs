@@ -35,7 +35,9 @@ namespace click
             Button cancel = new Button();
             Design.Opt_Design(this, ref assign, ref add, ref start, ref d,
                 ref c, ref p, ref s, ref save, ref cancel, ref defaul, ref oX, ref oY);
-
+            GlobalKeys.Add_glob.Unregister();
+            GlobalKeys.Assign_glob.Unregister();
+            GlobalKeys.Start_glob.Unregister();
             assign.Click += assign_Click;
             add.Click += add_Click;
             start.Click += start_Click;
@@ -183,7 +185,9 @@ namespace click
 
         private void Options_FormClosing(object sender, FormClosingEventArgs e)
         {
-            GlobalKeys.Detect();
+            GlobalKeys.Assign_glob.Register();
+            GlobalKeys.Add_glob.Register();
+            GlobalKeys.Start_glob.Register();
         }
     }
 }

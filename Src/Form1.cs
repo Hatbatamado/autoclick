@@ -24,8 +24,7 @@ namespace click
             if (m.Msg == WM_HOTKEY_MSG_ID)
                 if ((Getkey(m.LParam)) == Config_Keys("assign"))
                 {
-                    if (Start_Tick.Run == false)
-                        Add_Del_Assign.Assign();
+                    Add_Del_Assign.Assign();
                 }
                 else if ((Getkey(m.LParam)) == Config_Keys("start"))
                 {
@@ -33,8 +32,7 @@ namespace click
                 }
                 else if ((Getkey(m.LParam)) == Config_Keys("add"))
                 {
-                    if (Start_Tick.Run == false)
-                        Add_Del_Assign.Add();
+                    Add_Del_Assign.Add();
                 }
             base.WndProc(ref m);
         }

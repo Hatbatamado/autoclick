@@ -299,7 +299,6 @@ namespace click
         static void options_Click(object sender, EventArgs e)
         {
             Options options = new Options();
-            GlobalKeys.Stop_Detect();
             options.Show();
         }
         #endregion
@@ -433,7 +432,6 @@ namespace click
                         (obj as Button).Enabled = false;
                     else if (obj is Button && (obj as Button).Name == "Start")
                     {
-                        //TODO: change this text
                         (obj as Button).Text = "Stop (" + Button_Names("start") + ")";
                         (obj as Button).BackColor = Color.Red;
                     }
@@ -449,9 +447,7 @@ namespace click
                         (obj as Button).Enabled = true;
                     else if (obj is Button && (obj as Button).Name == "Start")
                     {
-                        //TODO: change this text
                         (obj as Button).Text = "Start (" + Button_Names("start") + ")";
-                        (obj as Button).Enabled = true;
                         (obj as Button).BackColor = Color.LightGreen;
                     }
                     else if (obj is TextBox)

@@ -20,11 +20,6 @@ namespace click
         static Timer time;
         static Timer time_le;
         static bool run;
-
-        public static bool Run
-        {
-            get { return Start_Tick.run; }
-        }
         static int step_r;
         static int step;
         static int step_glob_r;
@@ -72,6 +67,8 @@ namespace click
                     int check = Design.Click[step].Delay;
                     if (check > 0)
                         time.Interval = check;
+                    GlobalKeys.Add_glob.Unregister();
+                    GlobalKeys.Assign_glob.Unregister();
                     time.Start();
                     Time_Left();
                 }
@@ -89,6 +86,8 @@ namespace click
             Design.INIT(Design.Mainform, 2);
             current.Text = "";
             timeleft.Text = "";
+            GlobalKeys.Assign_glob.Register();
+            GlobalKeys.Add_glob.Register();
         }
 
         static void time_Tick(object sender, EventArgs e)
