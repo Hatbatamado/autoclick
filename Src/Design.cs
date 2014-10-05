@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
+//TODO: screen size check to make portable the rest configs
+
 namespace click
 {
     class Design
