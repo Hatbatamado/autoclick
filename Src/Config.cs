@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -164,6 +163,41 @@ namespace click
             speed = Convert.ToInt32(speed1);
             oX = Convert.ToInt32(oX1);
             oY = Convert.ToInt32(oY1);
+            Config_Write();
+        }
+
+        static public void Config_Change(string which, object what)
+        {
+            switch (which)
+            {
+                case "assign":
+                    assign = (int)what;
+                    break;
+                case "add":
+                    add = (int)what;
+                    break;
+                case "start":
+                    start = (int)what;
+                    break;
+                case "delay":
+                    delay = (int)what;
+                    break;
+                case "click":
+                    click = (int)what;
+                    break;
+                case "process":
+                    process = (int)what;
+                    break;
+                case "speed":
+                    speed = (int)what;
+                    break;
+                case "oX":
+                    oX = (int)what;
+                    break;
+                case "oY":
+                    oY = (int)what;
+                    break;
+            }
             Config_Write();
         }
     }

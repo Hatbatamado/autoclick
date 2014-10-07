@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-//TODO: screen size check to make portable the rest configs
-
 namespace click
 {
     class Design
     {
+        #region fields
         static private TextBox x;
         public static TextBox X
         {
@@ -62,7 +61,7 @@ namespace click
         {
             get { return Design.mainform; }
         }
-
+        #endregion
 
         static public void INIT(Form form, int what)
         {
@@ -77,6 +76,7 @@ namespace click
                 form.Text = "Auto-clicker by Nakia";
                 //---------------------------------------------------
                 form.StartPosition = FormStartPosition.Manual;
+                Screen_check();
                 form.Location = new Point(Config.Config_settings("oX"), Config.Config_settings("oY"));
                 form.FormBorderStyle = FormBorderStyle.FixedSingle;
                 form.MaximizeBox = false;
@@ -553,6 +553,13 @@ namespace click
                 default:
                     return "";
             }
+        }
+
+        static private void Screen_check()
+        {
+            int x = Screen.PrimaryScreen.WorkingArea.Width - 550;
+            if (x != Config.Config_settings("oX"))
+                Config.Config_Change("oX", x);
         }
     }
 }
