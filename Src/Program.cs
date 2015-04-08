@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 namespace click
 {
+    //TODO: hint for the user: it captures every selected button push while its running (other programs may not run shortcuts with them)
     static class Program
     {
         /// <summary>
